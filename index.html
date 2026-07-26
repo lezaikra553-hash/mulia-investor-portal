@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1324">
+  <title>Mulia Group Investor Center — Simple V1</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<section id="loginView" class="login-view">
+  <div class="login-panel">
+    <div class="brand">
+      <div class="logo">MG</div>
+      <div><b>MULIA GROUP</b><span>INVESTOR CENTER • SIMPLE V1</span></div>
+    </div>
+
+    <div id="loginBox">
+      <h1>Masuk ke portal</h1>
+      <p>Versi sederhana tanpa folder <code>/api</code> dan tanpa server Vercel Function.</p>
+      <form id="loginForm">
+        <label>Username<input id="loginUsername" required autocomplete="username"></label>
+        <label>Password<input id="loginPassword" type="password" required autocomplete="current-password"></label>
+        <button class="btn primary" type="submit">Masuk</button>
+      </form>
+      <button id="setupOpenButton" class="btn secondary hidden" type="button">Buat Akun Owner Pertama</button>
+      <div id="loginMessage" class="message"></div>
+    </div>
+
+    <div id="setupBox" class="hidden">
+      <h1>Buat Owner pertama</h1>
+      <p>Kode setup harus sama dengan kode yang Anda isi di file SQL.</p>
+      <form id="setupForm">
+        <label>Nama Owner<input id="setupName" value="Abdul Aziz Efendi" required></label>
+        <label>Username<input id="setupUsername" required></label>
+        <label>Password<input id="setupPassword" type="password" minlength="8" required></label>
+        <label>Ulangi Password<input id="setupPassword2" type="password" minlength="8" required></label>
+        <label>Kode Setup<input id="setupCode" type="password" required></label>
+        <button class="btn primary" type="submit">Buat Akun Owner</button>
+        <button id="setupCancelButton" class="btn secondary" type="button">Kembali</button>
+      </form>
+      <div id="setupMessage" class="message"></div>
+    </div>
+  </div>
+
+  <div class="login-visual">
+    <div>
+      <small>PORTAL INVESTOR MULIA GROUP</small>
+      <h2>Satu link untuk Owner dan investor.</h2>
+      <p>Lebih sederhana: GitHub/Vercel hanya menyajikan file HTML. Semua data langsung terhubung ke Supabase melalui fungsi aman.</p>
+    </div>
+  </div>
+</section>
+
+<div id="appView" class="hidden">
+  <header class="topbar no-print">
+    <div class="brand compact">
+      <div class="logo">MG</div>
+      <div><b>MULIA GROUP</b><span>INVESTOR CENTER</span></div>
+    </div>
+    <div class="actions">
+      <select id="investorSelect" class="hidden"></select>
+      <select id="yearSelect"></select>
+      <button class="btn secondary" onclick="window.print()">Print / PDF</button>
+      <button id="adminOpenButton" class="btn gold hidden">Admin</button>
+      <button id="logoutButton" class="btn dark">Keluar</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <small>LAPORAN INVESTASI</small>
+        <h1 id="reportTitle">Mulia Group Investor Report</h1>
+        <p id="greeting">Ringkasan perkembangan investasi.</p>
+      </div>
+      <div class="hero-meta"><span>PERIODE</span><b id="periodLabel">-</b><span>STATUS</span><b id="statusLabel">AKTIF</b></div>
+    </section>
+
+    <section class="identity">
+      <div><small>Nama Investor</small><b id="investorName">-</b></div>
+      <div><small>Perusahaan</small><b id="companyName">-</b></div>
+      <div><small>Porsi Investor</small><b id="sharePercent">-</b></div>
+      <div><small>ID Investor</small><b id="investorCode">-</b></div>
+    </section>
+
+    <section class="summary">
+      <article><small>Total Pemasukan</small><b id="sumIncome">Rp0</b></article>
+      <article><small>Total Pengeluaran</small><b id="sumExpense">Rp0</b></article>
+      <article><small>Total Laba Bersih</small><b id="sumProfit">Rp0</b></article>
+      <article class="highlight"><small>Hak Investor</small><b id="sumInvestor">Rp0</b></article>
+    </section>
+
+    <section class="card">
+      <div class="title"><h2>Rekap Bulanan Lengkap</h2><p>Pemasukan, operasional, bagi hasil, pengeluaran, dan laba/rugi.</p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Bulan</th><th>Pemasukan</th><th>Operasional</th><th>Bagi Hasil</th><th>Pengeluaran</th><th>Laba/Rugi</th></tr></thead>
+          <tbody id="monthlyRows"></tbody>
+          <tfoot id="monthlyFoot"></tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="title"><h2>Rekap Bagi Hasil</h2><p>Pembagian berdasarkan laba bersih positif.</p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Bulan</th><th>Pemasukan</th><th>Pengeluaran</th><th>Laba Bersih</th><th id="investorHead">Investor</th><th id="ownerHead">Owner</th><th id="savingHead">Tabungan</th></tr></thead>
+          <tbody id="shareRows"></tbody>
+          <tfoot id="shareFoot"></tfoot>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<dialog id="adminDialog">
+  <div class="dialog-head"><div><small>OWNER ONLY</small><h2>Panel Admin</h2></div><button class="close-button" data-close="adminDialog">×</button></div>
+  <div class="tabs">
+    <button class="tab active" data-tab="investors">Investor</button>
+    <button class="tab" data-tab="sync">Upload JSON</button>
+  </div>
+  <div class="dialog-body">
+    <section id="tab-investors">
+      <div class="tools"><div><h3>Akun Investor</h3><p>Buat atau ubah akun investor.</p></div><button id="addInvestorButton" class="btn primary">Tambah Investor</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Investor</th><th>Username</th><th>Perusahaan</th><th>Porsi</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="adminInvestorRows"></tbody></table></div>
+    </section>
+
+    <section id="tab-sync" class="hidden">
+      <div class="form-grid">
+        <label>Investor<select id="syncInvestor"></select></label>
+        <label>Tahun<select id="syncYear"></select></label>
+        <label>File JSON<input id="syncFile" type="file" accept=".json"></label>
+      </div>
+      <div id="syncPreview" class="preview">Belum ada file dipilih.</div>
+      <button id="saveSyncButton" class="btn gold" disabled>Simpan Laporan</button>
+    </section>
+  </div>
+</dialog>
+
+<dialog id="investorDialog">
+  <div class="dialog-head"><div><small>OWNER ONLY</small><h2 id="investorDialogTitle">Tambah Investor</h2></div><button class="close-button" data-close="investorDialog">×</button></div>
+  <form id="investorForm" class="dialog-body">
+    <input id="formInvestorId" type="hidden">
+    <div class="form-grid">
+      <label>Nama Investor<input id="formName" required></label>
+      <label>Username<input id="formUsername" required></label>
+      <label>Password<input id="formPassword" type="password" minlength="8"></label>
+      <label>Perusahaan<select id="formCompany"><option value="BM">CV. BERKAH MULIA ADV</option><option value="DM">PT. DWI MULIA ADVERTISING</option><option value="AP">PT. AZKIA MULIA PERADA</option></select></label>
+      <label>Porsi Investor (%)<input id="formShare" type="number" min="0" max="100" step="0.01" required></label>
+      <label>Porsi Owner (%)<input id="formOwnerShare" type="number" min="0" max="100" step="0.01" required></label>
+      <label>Tabungan Bersama (%)<input id="formSavingShare" type="number" min="0" max="100" step="0.01" required></label>
+      <label>Status<select id="formActive"><option value="true">Aktif</option><option value="false">Nonaktif</option></select></label>
+    </div>
+    <div class="form-actions"><button class="btn secondary" type="button" data-close="investorDialog">Batal</button><button class="btn primary" type="submit">Simpan</button></div>
+  </form>
+</dialog>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>
