@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b1324">
-<title>Mulia Group Investor Center</title>
+<title>Mulia Group Investor Center V1.1 FIX</title>
 <style>
 :root{--navy:#0b1324;--navy2:#16253f;--gold:#c79b43;--gold2:#ead59f;--bg:#eef2f6;--line:#d9e0ea;--text:#111827;--muted:#667085;--green:#087443;--red:#d92d20}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}.hidden{display:none!important}
 .login{min-height:100vh;display:grid;grid-template-columns:410px 1fr}.loginLeft{background:#fff;padding:55px;display:flex;flex-direction:column;justify-content:center}.brand{display:flex;gap:12px;align-items:center}.logo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,var(--gold),var(--gold2));display:grid;place-items:center;font-weight:900;color:var(--navy)}.brand b,.brand span{display:block}.brand span{font-size:9px;letter-spacing:.14em;color:var(--muted);margin-top:3px}.login h1{font-size:32px;margin:38px 0 12px}.login p{color:var(--muted);line-height:1.7}.field{display:grid;gap:7px;margin-top:13px}.field label{font-size:11px;font-weight:800}.field input,.field select{padding:12px;border:1px solid var(--line);border-radius:10px;outline:none}.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(199,155,67,.13)}.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:800;cursor:pointer}.primary{background:var(--navy);color:#fff}.gold{background:var(--gold);color:var(--navy)}.light{background:#fff;border:1px solid var(--line)}.danger{background:#b42318;color:#fff}.login .btn{width:100%;margin-top:16px}.msg{min-height:18px;color:var(--red);font-size:12px;margin-top:10px}.loginRight{background:radial-gradient(circle at 75% 20%,rgba(199,155,67,.24),transparent 35%),linear-gradient(145deg,var(--navy),var(--navy2));display:grid;place-items:center;padding:65px;color:#fff}.quote{max-width:610px}.quote small{color:var(--gold2);font-weight:900;letter-spacing:.15em}.quote h2{font-family:Georgia,serif;font-size:48px;line-height:1.12;margin:18px 0}.quote p{color:#cbd5e1;font-size:17px}
 .topbar{background:var(--navy);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;position:sticky;top:0;z-index:10}.actions{display:flex;gap:8px;align-items:center}.actions select{padding:9px;border-radius:9px}.wrap{max-width:1240px;margin:24px auto;padding:0 18px 40px}.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:22px;padding:30px 34px;display:flex;justify-content:space-between;gap:20px}.hero small{color:var(--gold2);font-weight:900;letter-spacing:.15em}.hero h1{font-family:Georgia,serif;font-size:38px;margin:10px 0}.hero p{color:#cbd5e1;margin:0}.meta{text-align:right}.meta b,.meta span{display:block}.meta span{font-size:10px;color:#94a3b8;margin-top:7px}.identity,.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:15px}.identity{background:#fff;border:1px solid var(--line);border-radius:15px}.identity>div{padding:16px;border-right:1px solid var(--line)}.identity>div:last-child{border:0}.identity small,.summary small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;font-weight:800}.identity b,.summary b{display:block;margin-top:7px}.summary{gap:11px}.summary article{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px}.summary article:last-child{background:#fff8e8;border-color:#ead59f}.summary b{font-size:21px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:17px}.title{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:14px}.title h2{font-size:18px;margin:0}.title p{margin:0;color:var(--muted);font-size:12px}.info{background:#e8fbef;color:var(--green);padding:10px 12px;border-radius:9px;font-size:11px;font-weight:700;margin-bottom:12px}.tableWrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{background:#f7f8fa;color:#344054;font-size:10px;text-transform:uppercase}tfoot td{background:#fff8e8;font-weight:900}.pos{color:var(--green);font-weight:800}.neg{color:var(--red);font-weight:800}.footer{display:flex;justify-content:space-between;margin-top:22px;padding-top:14px;border-top:1px solid #b8c1ce;font-size:10px;color:var(--muted)}
-dialog{width:min(1050px,calc(100% - 24px));max-height:92vh;border:0;border-radius:18px;padding:0;box-shadow:0 40px 100px rgba(0,0,0,.35)}dialog::backdrop{background:rgba(8,15,28,.72)}.dhead{background:var(--navy);color:#fff;padding:17px 20px;display:flex;justify-content:space-between;align-items:center}.dhead h2{margin:0}.close{border:0;background:rgba(255,255,255,.12);color:#fff;width:34px;height:34px;border-radius:9px;font-size:22px}.dbody{padding:20px;overflow:auto}.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);padding-bottom:10px}.tab{border:0;background:#f2f4f7;padding:9px 12px;border-radius:8px;font-weight:800}.tab.active{background:var(--navy);color:#fff}.panel{margin-top:16px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.adminTable button{padding:7px 9px}.note{font-size:12px;color:var(--muted);line-height:1.6}.preview{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:13px;margin:12px 0;min-height:70px;font-size:12px}.toast{position:fixed;right:16px;bottom:16px;background:var(--navy);color:#fff;padding:11px 14px;border-radius:10px;opacity:0;transform:translateY(8px);transition:.2s;z-index:999}.toast.show{opacity:1;transform:none}
+dialog:not([open]){display:none}dialog[open]{display:block}dialog{width:min(1050px,calc(100% - 24px));max-height:92vh;border:0;border-radius:18px;padding:0;box-shadow:0 40px 100px rgba(0,0,0,.35)}dialog::backdrop{background:rgba(8,15,28,.72)}.dhead{background:var(--navy);color:#fff;padding:17px 20px;display:flex;justify-content:space-between;align-items:center}.dhead h2{margin:0}.close{border:0;background:rgba(255,255,255,.12);color:#fff;width:34px;height:34px;border-radius:9px;font-size:22px}.dbody{padding:20px;overflow:auto}.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);padding-bottom:10px}.tab{border:0;background:#f2f4f7;padding:9px 12px;border-radius:8px;font-weight:800}.tab.active{background:var(--navy);color:#fff}.panel{margin-top:16px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.adminTable button{padding:7px 9px}.note{font-size:12px;color:var(--muted);line-height:1.6}.preview{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:13px;margin:12px 0;min-height:70px;font-size:12px}.toast{position:fixed;right:16px;bottom:16px;background:var(--navy);color:#fff;padding:11px 14px;border-radius:10px;opacity:0;transform:translateY(8px);transition:.2s;z-index:999}.toast.show{opacity:1;transform:none}
 @media(max-width:800px){.login{grid-template-columns:1fr}.loginRight{display:none}.topbar{flex-wrap:wrap;gap:10px}.actions{width:100%;overflow:auto}.hero{display:block}.meta{text-align:left;margin-top:18px}.identity,.summary{grid-template-columns:repeat(2,1fr)}.title{display:block}.title p{margin-top:6px}.grid{grid-template-columns:1fr}}
 @media(max-width:480px){.loginLeft{padding:28px}.identity,.summary{grid-template-columns:1fr}}
 @media print{@page{size:A4 landscape;margin:8mm}.noPrint,dialog,.toast{display:none!important}body{background:#fff}.wrap{max-width:none;margin:0;padding:0}.hero{padding:18px 22px;border-radius:10px}.hero h1{font-size:25px}.identity,.summary{margin-top:8px}.identity>div,.summary article{padding:9px 11px}.summary b{font-size:15px}.card{padding:12px;margin-top:9px;border-radius:10px}.title{margin-bottom:8px}table{font-size:9px}th,td{padding:5px}.footer{margin-top:9px}}
@@ -21,7 +21,7 @@ dialog{width:min(1050px,calc(100% - 24px));max-height:92vh;border:0;border-radiu
 
 <section id="loginView" class="login">
   <div class="loginLeft">
-    <div class="brand"><div class="logo">MG</div><div><b>MULIA GROUP</b><span>INVESTOR REPORT CENTER</span></div></div>
+    <div class="brand"><div class="logo">MG</div><div><b>MULIA GROUP</b><span>INVESTOR REPORT CENTER • V1.1 FIX</span></div></div>
     <h1>Akses laporan investasi</h1>
     <p>Masukkan username dan password. Saat pertama kali dibuka, buat akun Owner terlebih dahulu.</p>
     <form id="loginForm">
@@ -87,7 +87,7 @@ dialog{width:min(1050px,calc(100% - 24px));max-height:92vh;border:0;border-radiu
   </main>
 
   <dialog id="adminDialog">
-    <div class="dhead"><h2>Panel Admin Investor</h2><button class="close" onclick="adminDialog.close()">×</button></div>
+    <div class="dhead"><h2>Panel Admin Investor</h2><button class="close" onclick="document.getElementById('adminDialog').close()">×</button></div>
     <div class="dbody">
       <div class="tabs">
         <button class="tab active" data-panel="investors">Investor</button>
@@ -123,7 +123,7 @@ dialog{width:min(1050px,calc(100% - 24px));max-height:92vh;border:0;border-radiu
   </dialog>
 
   <dialog id="investorDialog">
-    <div class="dhead"><h2 id="formTitle">Tambah Investor</h2><button class="close" onclick="investorDialog.close()">×</button></div>
+    <div class="dhead"><h2 id="formTitle">Tambah Investor</h2><button class="close" onclick="document.getElementById('investorDialog').close()">×</button></div>
     <form id="investorForm" class="dbody">
       <input id="formId" type="hidden">
       <div class="grid">
@@ -134,12 +134,12 @@ dialog{width:min(1050px,calc(100% - 24px));max-height:92vh;border:0;border-radiu
         <div class="field"><label>Persentase Investor (%)</label><input id="formPct" type="number" min="0" max="100" step="0.01" required></div>
         <div class="field"><label>Status</label><select id="formActive"><option value="true">Aktif</option><option value="false">Nonaktif</option></select></div>
       </div>
-      <div class="toolbar"><button type="button" class="btn light" onclick="investorDialog.close()">Batal</button><button class="btn primary" type="submit">Simpan</button></div>
+      <div class="toolbar"><button type="button" class="btn light" onclick="document.getElementById('investorDialog').close()">Batal</button><button class="btn primary" type="submit">Simpan</button></div>
     </form>
   </dialog>
 
   <dialog id="setupDialog">
-    <div class="dhead"><h2>Buat Akun Owner Pertama</h2><button class="close" onclick="setupDialog.close()">×</button></div>
+    <div class="dhead"><h2>Buat Akun Owner Pertama</h2><button class="close" onclick="document.getElementById('setupDialog').close()">×</button></div>
     <form id="setupForm" class="dbody">
       <p class="note">Password tidak disimpan sebagai teks biasa. Sistem menyimpan hash PBKDF2-SHA256 di browser.</p>
       <div class="field"><label>Nama Owner</label><input id="setupName" value="Abdul Aziz Efendi" required></div>
@@ -194,15 +194,25 @@ $('loginForm').onsubmit=async e=>{
   if(!u||!(await verify(password,u))){$('loginMsg').textContent='Username atau password tidak sesuai.';return}
   saveSession({userId:u.id});$('loginMsg').textContent='';boot()
 };
-$('setupBtn').onclick=()=>setupDialog.showModal();
+$('setupBtn').onclick=()=>{
+  const d=$('setupDialog');
+  if(!d){$('loginMsg').textContent='Form akun Owner tidak ditemukan.';return}
+  try{
+    if(typeof d.showModal==='function')d.showModal();
+    else d.setAttribute('open','');
+  }catch(err){
+    d.setAttribute('open','');
+    $('loginMsg').textContent='';
+  }
+};
 $('setupForm').onsubmit=async e=>{
   e.preventDefault();if(db.users.some(x=>x.role==='owner'))return;
   const p=$('setupPass').value;if(p!==$('setupPass2').value)return alert('Konfirmasi password tidak sama.');
   const h=await hashPassword(p);db.users.push({id:uid('USR'),name:$('setupName').value.trim(),username:$('setupUser').value.trim().toLowerCase(),role:'owner',hash:h.hash,salt:h.salt,active:true});
-  saveDB();setupDialog.close();toast('Akun Owner dibuat. Silakan login.')
+  saveDB();$('setupDialog').close();toast('Akun Owner dibuat. Silakan login.');
 };
 $('logoutBtn').onclick=()=>{sessionStorage.removeItem(SESSION_KEY);session=null;boot()};
-$('adminBtn').onclick=()=>{adminDialog.showModal();renderAdmin()};
+$('adminBtn').onclick=()=>{const d=$('adminDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','');renderAdmin()};
 $('newInvestorBtn').onclick=()=>openInvestorForm();
 $('investorForm').onsubmit=saveInvestor;
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.panel').forEach(x=>x.classList.add('hidden'));$('panel-'+b.dataset.panel).classList.remove('hidden')});
@@ -211,7 +221,7 @@ $('downloadBackupBtn').onclick=downloadBackup;$('importBackup').onchange=importB
 
 function fillYears(){const now=new Date().getFullYear(),ys=[];for(let y=now+1;y>=2024;y--)ys.push(y);$('yearSelect').innerHTML=ys.map(y=>`<option>${y}</option>`).join('');$('yearSelect').value=now}
 function openInvestorForm(i=null){
-  $('investorForm').reset();$('formId').value=i?.id||'';$('formTitle').textContent=i?'Edit Investor':'Tambah Investor';$('formName').value=i?.name||'';$('formUsername').value=i?.username||'';$('formCompany').value=i?.companyCode||'BM';$('formPct').value=i?.sharePercent??10;$('formActive').value=String(i?.active??true);$('formPassword').required=!i;investorDialog.showModal()
+  $('investorForm').reset();$('formId').value=i?.id||'';$('formTitle').textContent=i?'Edit Investor':'Tambah Investor';$('formName').value=i?.name||'';$('formUsername').value=i?.username||'';$('formCompany').value=i?.companyCode||'BM';$('formPct').value=i?.sharePercent??10;$('formActive').value=String(i?.active??true);$('formPassword').required=!i;const d=$('investorDialog');if(typeof d.showModal==='function')d.showModal();else d.setAttribute('open','')
 }
 async function saveInvestor(e){
   e.preventDefault();const id=$('formId').value||uid('INV'),username=$('formUsername').value.trim().toLowerCase(),pass=$('formPassword').value;
@@ -221,7 +231,7 @@ async function saveInvestor(e){
   let u=db.users.find(x=>x.investorId===id);
   if(!u){if(pass.length<8)return alert('Password minimal 8 karakter.');const h=await hashPassword(pass);db.users.push({id:uid('USR'),name:data.name,username,role:'investor',investorId:id,hash:h.hash,salt:h.salt,active:data.active})}
   else{u.name=data.name;u.username=username;u.active=data.active;if(pass){if(pass.length<8)return alert('Password minimal 8 karakter.');const h=await hashPassword(pass);u.hash=h.hash;u.salt=h.salt}}
-  activeInvestor=data;saveDB();investorDialog.close();toast('Investor berhasil disimpan.')
+  activeInvestor=data;saveDB();$('investorDialog').close();toast('Investor berhasil disimpan.');
 }
 function renderAdmin(){
   if(!$('adminRows'))return;
