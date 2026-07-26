@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0f172a" />
   <meta name="description" content="Portal Investor Mulia Group - dashboard investasi, bagi hasil, pembayaran, proyek, dan dokumen." />
-  <title>Mulia Group Investor Portal</title>
+  <title>Mulia Group Investor Center — Secure Prototype V2</title>
   <style>
     :root{
       --bg:#f4f7fb;--surface:#ffffff;--surface2:#f8fafc;--text:#0f172a;--muted:#64748b;
@@ -91,14 +91,18 @@
     <div class="login-card">
       <div class="brand">
         <div class="brand-mark">MG</div>
-        <div><h2 style="margin:0">Mulia Group</h2><div class="muted">Investor Portal</div></div>
+        <div><h2 style="margin:0">Mulia Group</h2><div class="muted">Investor Center</div></div>
       </div>
       <p class="muted" style="margin-top:24px">Akses ringkasan investasi, pembagian hasil, pembayaran, proyek, dan dokumen secara terbatas.</p>
-      <div class="field"><label>Email / Username</label><input id="loginUser" value="sentot" autocomplete="username"></div>
-      <div class="field"><label>Password</label><input id="loginPass" type="password" value="123456" autocomplete="current-password"></div>
+      <div class="field"><label>Email / Username</label><input id="loginUser" autocomplete="username"></div>
+      <div class="field"><label>Password</label><input id="loginPass" type="password" autocomplete="current-password"></div>
       <button class="btn" style="width:100%" onclick="login()">Masuk ke Portal</button>
       <div id="loginError" class="demo-note hidden"></div>
-      <div class="demo-note"><b>Akun demo investor:</b> sentot / 123456<br><b>Akun demo owner:</b> owner / owner123</div>
+      <div id="securityNote" class="demo-note">
+      Password tidak ditulis di dalam source aplikasi dan tidak disimpan sebagai teks biasa.
+      Pada penggunaan pertama, buat akun Owner terlebih dahulu.
+    </div>
+    <button id="setupOwnerBtn" class="btn secondary hidden" style="width:100%;margin-top:10px" onclick="openOwnerSetup()">Buat Akun Owner Pertama</button>
     </div>
   </section>
 
@@ -106,7 +110,7 @@
     <aside id="sidebar" class="sidebar">
       <div class="brand">
         <div class="brand-mark">MG</div>
-        <div><b>Mulia Group</b><small style="display:block;color:#94a3b8">Investor Portal</small></div>
+        <div><b>Mulia Group</b><small style="display:block;color:#94a3b8">Investor Center</small></div>
       </div>
       <nav class="nav">
         <button data-page="dashboard" class="active" onclick="showPage('dashboard',this)">Dashboard</button>
@@ -194,7 +198,7 @@
         </section>
 
         <section id="page-admin" class="page hidden">
-          <div class="notice">Panel ini hanya untuk akun Owner. Data disimpan di browser sebagai prototipe. Untuk produksi multi-user, sambungkan ke database dan autentikasi server-side.</div>
+          <div class="notice">Panel ini hanya untuk akun Owner. Password tidak disimpan sebagai teks biasa. Data bisnis masih tersimpan lokal pada browser; versi produksi tetap memerlukan database dan autentikasi server-side.</div>
           <div class="grid two section">
             <div class="card admin-panel">
               <div class="section-head"><div><h3 style="margin:0">Investor</h3><small class="muted">Kelola profil dan akad investasi</small></div><button class="btn small" onclick="openInvestorModal()">Tambah Investor</button></div>
@@ -220,10 +224,26 @@
           </div>
         </section>
 
-        <div class="footer-note">Mulia Group Investor Portal • Prototype V1 • Akses Investor Terbatas</div>
+        <div class="footer-note">Mulia Group Investor Center • Secure Prototype V2 • Akses Investor Terbatas</div>
       </div>
     </main>
   </div>
+
+
+  <dialog id="ownerSetupModal">
+    <div class="modal-head"><h3 style="margin:0">Pengaturan Owner Pertama</h3></div>
+    <div class="modal-body">
+      <div class="notice">Akun ini dibuat hanya pada perangkat/browser ini. Password diproses menjadi hash menggunakan Web Crypto dan tidak disimpan sebagai teks biasa.</div>
+      <div class="field"><label>Nama Owner</label><input id="setupOwnerName" value="Abdul Aziz Efendi"></div>
+      <div class="field"><label>Username Owner</label><input id="setupOwnerUser" autocomplete="username"></div>
+      <div class="field"><label>Password Baru</label><input id="setupOwnerPass" type="password" autocomplete="new-password"></div>
+      <div class="field"><label>Ulangi Password</label><input id="setupOwnerPass2" type="password" autocomplete="new-password"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn secondary" onclick="ownerSetupModal.close()">Batal</button>
+      <button class="btn" onclick="createFirstOwner()">Buat Akun Owner</button>
+    </div>
+  </dialog>
 
   <dialog id="investorModal">
     <div class="modal-head"><h3 style="margin:0">Data Investor</h3></div>
@@ -234,7 +254,7 @@
         <div class="field"><label>Username</label><input id="invUsername"></div>
       </div>
       <div class="grid two">
-        <div class="field"><label>Password</label><input id="invPassword"></div>
+        <div class="field"><label>Password Akses</label><input id="invPassword" type="password" autocomplete="new-password" placeholder="Isi saat membuat akun; kosongkan jika tidak diubah"></div>
         <div class="field"><label>Perusahaan</label><input id="invCompany"></div>
       </div>
       <div class="grid two">
@@ -250,16 +270,13 @@
   </dialog>
 
 <script>
-const DB_KEY='MULIA_INVESTOR_PORTAL_V1';
-const SESSION_KEY='MULIA_INVESTOR_SESSION_V1';
+const DB_KEY='MULIA_INVESTOR_PORTAL_V2_SECURE';
+const SESSION_KEY='MULIA_INVESTOR_SESSION_V2_SECURE';
 
 const demoData={
-  schema:'MULIA_INVESTOR_PORTAL_V1',
+  schema:'MULIA_INVESTOR_PORTAL_V2_SECURE',
   updatedAt:new Date().toISOString(),
-  users:[
-    {id:'owner-1',name:'Abdul Aziz Efendi',username:'owner',password:'owner123',role:'OWNER'},
-    {id:'inv-sentot',name:'Sentot',username:'sentot',password:'123456',role:'INVESTOR',investorId:'INV001'}
-  ],
+  users:[],
   investors:[
     {id:'INV001',name:'Sentot',company:'CV. BERKAH MULIA ADV',capital:20000000,sharePercent:20,startDate:'2026-01-15',status:'AKTIF',contractNo:'PKS/BM/INV/001/2026'}
   ],
@@ -292,21 +309,85 @@ function loadDB(){
   try{const x=JSON.parse(localStorage.getItem(DB_KEY));return x&&x.schema?x:clone(demoData)}
   catch(e){return clone(demoData)}
 }
-function saveDB(){db.updatedAt=new Date().toISOString();localStorage.setItem(DB_KEY,JSON.stringify(db));renderAll()}
+function saveDB(){db.updatedAt=new Date().toISOString();localStorage.setItem(DB_KEY,JSON.stringify(db));renderAll();refreshSetupState()}
+
+function migrateSecurity(){
+  let changed=false;
+  db.users=(db.users||[]).filter(Boolean);
+  for(const user of db.users){
+    if('password' in user){delete user.password;changed=true}
+  }
+  if(db.schema!=='MULIA_INVESTOR_PORTAL_V2_SECURE'){db.schema='MULIA_INVESTOR_PORTAL_V2_SECURE';changed=true}
+  if(changed)localStorage.setItem(DB_KEY,JSON.stringify(db));
+}
+
 function loadSession(){try{return JSON.parse(sessionStorage.getItem(SESSION_KEY))||null}catch(e){return null}}
 function saveSession(x){session=x;sessionStorage.setItem(SESSION_KEY,JSON.stringify(x))}
 function rupiah(n){return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n||0))}
 function fmtDate(v){if(!v)return'-';return new Intl.DateTimeFormat('id-ID',{day:'2-digit',month:'short',year:'numeric'}).format(new Date(v))}
 function esc(v=''){return String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function uid(prefix){return prefix+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function bytesToB64(bytes){return btoa(String.fromCharCode(...bytes))}
+function b64ToBytes(value){return Uint8Array.from(atob(value),c=>c.charCodeAt(0))}
+async function derivePassword(password,saltB64){
+  const enc=new TextEncoder();
+  const salt=saltB64?b64ToBytes(saltB64):crypto.getRandomValues(new Uint8Array(16));
+  const keyMaterial=await crypto.subtle.importKey('raw',enc.encode(password),'PBKDF2',false,['deriveBits']);
+  const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:180000,hash:'SHA-256'},keyMaterial,256);
+  return{salt:bytesToB64(salt),hash:bytesToB64(new Uint8Array(bits))};
+}
+async function verifyPassword(password,user){
+  if(!user?.passwordHash||!user?.passwordSalt)return false;
+  const candidate=await derivePassword(password,user.passwordSalt);
+  return candidate.hash===user.passwordHash;
+}
+function hasOwner(){return db.users.some(x=>x.role==='OWNER')}
+function refreshSetupState(){
+  const btn=document.getElementById('setupOwnerBtn');
+  if(btn)btn.classList.toggle('hidden',hasOwner());
+}
+function openOwnerSetup(){
+  if(hasOwner())return alert('Akun Owner sudah tersedia.');
+  document.getElementById('setupOwnerUser').value='';
+  document.getElementById('setupOwnerPass').value='';
+  document.getElementById('setupOwnerPass2').value='';
+  ownerSetupModal.showModal();
+}
+async function createFirstOwner(){
+  if(hasOwner())return alert('Akun Owner sudah tersedia.');
+  const name=document.getElementById('setupOwnerName').value.trim();
+  const username=document.getElementById('setupOwnerUser').value.trim();
+  const p1=document.getElementById('setupOwnerPass').value;
+  const p2=document.getElementById('setupOwnerPass2').value;
+  if(!name||!username||p1.length<8)return alert('Nama dan username wajib diisi. Password minimal 8 karakter.');
+  if(p1!==p2)return alert('Konfirmasi password tidak sama.');
+  const credential=await derivePassword(p1);
+  db.users.push({id:uid('USR'),name,username,role:'OWNER',passwordHash:credential.hash,passwordSalt:credential.salt,createdAt:new Date().toISOString()});
+  saveDB();
+  ownerSetupModal.close();
+  document.getElementById('loginUser').value=username;
+  document.getElementById('loginPass').value='';
+  refreshSetupState();
+  alert('Akun Owner berhasil dibuat. Silakan login.');
+}
 
-function login(){
-  const u=document.getElementById('loginUser').value.trim();
-  const p=document.getElementById('loginPass').value;
-  const user=db.users.find(x=>x.username===u&&x.password===p);
-  if(!user){
-    const e=document.getElementById('loginError');e.textContent='Username atau password tidak sesuai.';e.classList.remove('hidden');return;
+async function login(){
+  const username=document.getElementById('loginUser').value.trim();
+  const password=document.getElementById('loginPass').value;
+  const errorBox=document.getElementById('loginError');
+  if(!hasOwner()){
+    errorBox.textContent='Belum ada akun Owner. Buat akun Owner pertama terlebih dahulu.';
+    errorBox.classList.remove('hidden');
+    refreshSetupState();
+    return;
   }
+  const user=db.users.find(x=>x.username===username);
+  if(!user||!(await verifyPassword(password,user))){
+    errorBox.textContent='Username atau password tidak sesuai.';
+    errorBox.classList.remove('hidden');
+    return;
+  }
+  errorBox.classList.add('hidden');
   saveSession({userId:user.id,loginAt:new Date().toISOString()});
   boot();
 }
@@ -430,23 +511,53 @@ function openInvestorModal(){
 function editInvestor(id){
   const inv=db.investors.find(x=>x.id===id),user=db.users.find(x=>x.investorId===id);if(!inv)return;
   document.getElementById('editInvestorId').value=id;document.getElementById('invName').value=inv.name;
-  document.getElementById('invUsername').value=user?.username||'';document.getElementById('invPassword').value=user?.password||'';
+  document.getElementById('invUsername').value=user?.username||'';document.getElementById('invPassword').value='';
   document.getElementById('invCompany').value=inv.company;document.getElementById('invCapital').value=inv.capital;
   document.getElementById('invShare').value=inv.sharePercent;document.getElementById('invStart').value=inv.startDate;
   document.getElementById('invStatus').value=inv.status;investorModal.showModal();
 }
-function saveInvestor(){
+async function saveInvestor(){
   if(currentUser()?.role!=='OWNER')return;
   const id=document.getElementById('editInvestorId').value||uid('INV');
-  const name=document.getElementById('invName').value.trim(),username=document.getElementById('invUsername').value.trim();
-  const password=document.getElementById('invPassword').value,company=document.getElementById('invCompany').value.trim();
-  if(!name||!username||!password||!company)return alert('Nama, username, password, dan perusahaan wajib diisi.');
+  const name=document.getElementById('invName').value.trim();
+  const username=document.getElementById('invUsername').value.trim();
+  const password=document.getElementById('invPassword').value;
+  const company=document.getElementById('invCompany').value.trim();
+  if(!name||!username||!company)return alert('Nama, username, dan perusahaan wajib diisi.');
+  if(db.users.some(x=>x.username===username&&x.investorId!==id))return alert('Username sudah digunakan.');
   let inv=db.investors.find(x=>x.id===id);
-  const payload={id,name,company,capital:Number(document.getElementById('invCapital').value||0),sharePercent:Number(document.getElementById('invShare').value||0),startDate:document.getElementById('invStart').value,status:document.getElementById('invStatus').value,contractNo:inv?.contractNo||''};
+  const payload={
+    id,name,company,
+    capital:Number(document.getElementById('invCapital').value||0),
+    sharePercent:Number(document.getElementById('invShare').value||0),
+    startDate:document.getElementById('invStart').value,
+    status:document.getElementById('invStatus').value,
+    contractNo:inv?.contractNo||''
+  };
   if(inv)Object.assign(inv,payload);else db.investors.push(payload);
   let user=db.users.find(x=>x.investorId===id);
-  if(user)Object.assign(user,{name,username,password});else db.users.push({id:uid('USR'),name,username,password,role:'INVESTOR',investorId:id});
-  investorModal.close();saveDB();
+  if(!user&&!password)return alert('Password wajib diisi untuk akun investor baru.');
+  if(password&&password.length<8)return alert('Password minimal 8 karakter.');
+  if(user){
+    Object.assign(user,{name,username});
+    if(password){
+      const credential=await derivePassword(password);
+      user.passwordHash=credential.hash;
+      user.passwordSalt=credential.salt;
+      user.passwordUpdatedAt=new Date().toISOString();
+    }
+    delete user.password;
+  }else{
+    const credential=await derivePassword(password);
+    db.users.push({
+      id:uid('USR'),name,username,role:'INVESTOR',investorId:id,
+      passwordHash:credential.hash,passwordSalt:credential.salt,
+      createdAt:new Date().toISOString()
+    });
+  }
+  investorModal.close();
+  saveDB();
+  alert('Data investor dan akses login berhasil disimpan.');
 }
 function exportInvestorReport(){
   const inv=currentInvestor();if(!inv)return;
@@ -461,8 +572,10 @@ function importBackup(e){
   const f=e.target.files[0];if(!f)return;
   const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!x.schema||!Array.isArray(x.investors))throw new Error('Format tidak sesuai');db=x;saveDB();alert('Backup berhasil diimpor.')}catch(err){alert('Import gagal: '+err.message)}};r.readAsText(f);e.target.value=''
 }
-function resetDemo(){if(confirm('Reset seluruh data lokal ke data demo?')){db=clone(demoData);saveDB()}}
+function resetDemo(){if(confirm('Reset seluruh data lokal? Semua akun login akan dihapus dan Owner harus dibuat ulang.')){db=clone(demoData);sessionStorage.removeItem(SESSION_KEY);saveDB();location.reload()}}
 document.getElementById('txDate').value=new Date().toISOString().slice(0,10);
+migrateSecurity();
+refreshSetupState();
 boot();
 </script>
 </body>

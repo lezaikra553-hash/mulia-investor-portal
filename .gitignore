@@ -1,8 +1,5 @@
-# OS / editor
+.vercel/
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
-
-# Vercel
-.vercel/
