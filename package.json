@@ -1,9 +1,0 @@
-{
-  "name": "mulia-investor-portal",
-  "version": "3.0.0",
-  "private": true,
-  "type": "module",
-  "dependencies": {
-    "@supabase/supabase-js": "^2.57.4"
-  }
-}
