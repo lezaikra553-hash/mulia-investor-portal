@@ -1,96 +1,42 @@
-# Mulia Investor Portal Simple V1
+# Mulia Investor Portal Standalone Final
 
-Versi ini sengaja dibuat lebih sederhana.
+Versi pengganti total yang paling sederhana.
 
-## Yang dihapus
+## Login Owner awal
 
-- Tidak ada folder `/api`
-- Tidak ada Vercel Serverless Function
-- Tidak ada `package.json`
-- Tidak ada environment variable Vercel
-- Tidak memakai Supabase Auth
+- Username: `owner`
+- Password: `Mulia2026!`
 
-GitHub/Vercel hanya menyajikan file HTML, CSS, dan JavaScript biasa.
+## Cara deploy
 
-## Yang masih digunakan
+1. Hapus semua file lama di repository GitHub.
+2. Upload hanya `index.html`.
+3. Commit.
+4. Tunggu Vercel selesai deploy.
+5. Buka kembali link portal.
+6. Login memakai akun Owner awal.
 
-- Supabase Database
-- Fungsi SQL aman (`security definer`)
-- Password di-hash dengan `pgcrypto`
-- Session token disimpan di database
-- Owner dan investor tetap dapat login dari perangkat berbeda
+## Fitur
 
-## Langkah pemasangan
+- Login Owner
+- Login Investor
+- Tambah dan edit investor
+- Input laporan bulanan manual
+- Perhitungan bagi hasil otomatis
+- Print / Save PDF
+- Backup JSON
+- Import backup
+- Ganti password Owner
+- Reset seluruh data
 
-### 1. Buat project Supabase
+## Catatan penting
 
-Buka Supabase dan buat project baru.
+Versi ini tidak memakai database online. Data tersimpan di browser masing-masing.
 
-### 2. Ubah kode setup di SQL
+Agar data dapat dipindahkan ke perangkat lain:
+1. Download Backup dari browser Owner.
+2. Buka portal pada perangkat lain.
+3. Login Owner awal.
+4. Import Backup.
 
-Buka:
-
-`supabase/schema.sql`
-
-Cari:
-
-`GANTI-KODE-SETUP-INI`
-
-Ganti dengan kode pilihan Anda, misalnya:
-
-`Mulia-Setup-2026`
-
-Jangan memakai tanda petik tambahan.
-
-### 3. Jalankan SQL
-
-Salin seluruh isi `supabase/schema.sql` ke Supabase SQL Editor lalu klik **Run**.
-
-### 4. Isi config.js
-
-Buka:
-
-`config.js`
-
-Isi:
-
-```js
-export const SUPABASE_URL = 'https://xxxxx.supabase.co';
-export const SUPABASE_ANON_KEY = 'eyJ...';
-```
-
-Keduanya ada di:
-
-**Supabase > Project Settings > API**
-
-Anon key aman diletakkan di browser karena akses tabel langsung sudah ditutup. Aplikasi hanya menggunakan fungsi SQL yang telah dibatasi.
-
-### 5. Upload ke GitHub
-
-Hapus isi repository lama lalu upload hanya:
-
-- `index.html`
-- `styles.css`
-- `app.js`
-- `config.js`
-- `vercel.json`
-
-Folder `supabase` dan `README.md` boleh ikut di-upload, tetapi tidak wajib.
-
-### 6. Buka portal
-
-Buka link Vercel Anda.
-
-Klik:
-
-**Buat Akun Owner Pertama**
-
-Masukkan kode setup yang sama dengan kode pada file SQL.
-
-## Catatan
-
-Versi ini tidak akan memanggil `/api/config`, sehingga error:
-
-`Respons server tidak valid (404)`
-
-tidak akan muncul lagi.
+Versi ini sengaja dipilih agar tidak ada lagi masalah Supabase, API, environment variable, atau error 404.

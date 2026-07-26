@@ -1,65 +1,49 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#0b1324">
-  <title>Mulia Group Investor Center — Simple V1</title>
-  <link rel="stylesheet" href="./styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1324">
+<title>Mulia Group Investor Center — Standalone Final</title>
+<style>
+:root{--navy:#0b1324;--navy2:#172844;--gold:#c79b43;--gold2:#ead59f;--bg:#eef2f6;--line:#d8e0ea;--text:#111827;--muted:#667085;--green:#087443;--red:#d92d20}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}.hidden{display:none!important}
+.login{min-height:100vh;display:grid;grid-template-columns:430px 1fr}.left{background:#fff;padding:50px;display:flex;flex-direction:column;justify-content:center}.brand{display:flex;gap:12px;align-items:center}.logo{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--gold),var(--gold2));display:grid;place-items:center;font-weight:900;color:var(--navy)}.brand b,.brand span{display:block}.brand span{font-size:9px;letter-spacing:.14em;color:var(--muted);margin-top:3px}
+.left h1{font-size:33px;margin:38px 0 10px}.left p{color:var(--muted);line-height:1.7}.right{background:radial-gradient(circle at 75% 18%,rgba(199,155,67,.25),transparent 35%),linear-gradient(145deg,var(--navy),var(--navy2));display:grid;place-items:center;padding:60px;color:#fff}.right>div{max-width:600px}.right small{color:var(--gold2);font-weight:900;letter-spacing:.15em}.right h2{font-family:Georgia,serif;font-size:49px;line-height:1.12;margin:18px 0}.right p{color:#cbd5e1;font-size:17px;line-height:1.7}
+label{display:grid;gap:7px;font-size:11px;font-weight:800;margin-top:13px}input,select{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;outline:none;background:#fff}input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(199,155,67,.13)}
+.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:800;cursor:pointer}.primary{background:var(--navy);color:#fff}.gold{background:var(--gold);color:var(--navy)}.secondary{background:#fff;border:1px solid var(--line)}.danger{background:#b42318;color:#fff}.dark{background:#24324a;color:#fff}.btn:disabled{opacity:.45}.left .btn{width:100%;margin-top:15px}.message{min-height:18px;margin-top:10px;font-size:12px;color:var(--red)}
+.topbar{background:var(--navy);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;position:sticky;top:0;z-index:10}.brand.compact .logo{width:40px;height:40px}.brand.compact span{color:#bac5d4}.actions{display:flex;gap:8px;align-items:center}.actions select{width:auto}
+.wrap{max-width:1240px;margin:25px auto;padding:0 18px 40px}.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:22px;padding:30px 34px;display:flex;justify-content:space-between;gap:25px}.hero small{color:var(--gold2);font-weight:900;letter-spacing:.15em}.hero h1{font-family:Georgia,serif;font-size:38px;margin:10px 0}.hero p{color:#cbd5e1;margin:0}.hero-meta{text-align:right;display:grid;align-content:center;gap:5px}.hero-meta span{font-size:9px;color:#94a3b8;margin-top:7px}.hero-meta b{font-size:17px}
+.identity,.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:15px}.identity{background:#fff;border:1px solid var(--line);border-radius:15px}.identity>div{padding:16px;border-right:1px solid var(--line)}.identity>div:last-child{border:0}.identity small,.summary small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;font-weight:800}.identity b,.summary b{display:block;margin-top:7px}.summary{gap:11px}.summary article{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px}.summary article.highlight{background:#fff8e8;border-color:#ead59f}.summary b{font-size:21px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:17px}.title{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:14px}.title h2{font-size:18px;margin:0}.title p{margin:0;color:var(--muted);font-size:12px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{background:#f7f8fa;color:#344054;font-size:10px;text-transform:uppercase}tfoot td{background:#fff8e8;font-weight:900}.positive{color:var(--green);font-weight:800}.negative{color:var(--red);font-weight:800}
+dialog{width:min(1080px,calc(100% - 24px));max-height:92vh;border:0;border-radius:18px;padding:0;box-shadow:0 40px 100px rgba(0,0,0,.35)}dialog::backdrop{background:rgba(8,15,28,.72)}.dialog-head{background:var(--navy);color:#fff;padding:17px 20px;display:flex;justify-content:space-between;align-items:center}.dialog-head small{color:var(--gold2);font-weight:900}.dialog-head h2{margin:4px 0 0}.close{border:0;background:rgba(255,255,255,.12);color:#fff;width:34px;height:34px;border-radius:9px;font-size:22px}.tabs{display:flex;gap:5px;padding:10px 20px;border-bottom:1px solid var(--line)}.tab{border:0;background:#f2f4f7;padding:9px 12px;border-radius:8px;font-weight:800}.tab.active{background:var(--navy);color:#fff}.dialog-body{padding:20px;overflow:auto}.tools{display:flex;justify-content:space-between;align-items:center}.tools h3{margin:0}.tools p{color:var(--muted);font-size:12px}.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.preview{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:13px;margin:12px 0;min-height:80px;font-size:12px}.form-actions{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--line);padding-top:16px}.toast{position:fixed;right:16px;bottom:16px;background:var(--navy);color:#fff;padding:11px 14px;border-radius:10px;opacity:0;transform:translateY(8px);transition:.2s;z-index:999}.toast.show{opacity:1;transform:none}
+@media(max-width:800px){.login{grid-template-columns:1fr}.right{display:none}.topbar{flex-wrap:wrap;gap:10px}.actions{width:100%;overflow:auto}.hero{display:block}.hero-meta{text-align:left;margin-top:18px}.identity,.summary{grid-template-columns:repeat(2,1fr)}.title{display:block}.title p{margin-top:6px}.form-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.left{padding:28px}.identity,.summary{grid-template-columns:1fr}}
+@media print{@page{size:A4 landscape;margin:8mm}.no-print,dialog,.toast{display:none!important}body{background:#fff}.wrap{max-width:none;margin:0;padding:0}.hero{padding:18px 22px;border-radius:10px}.hero h1{font-size:25px}.identity,.summary{margin-top:8px}.identity>div,.summary article{padding:9px 11px}.summary b{font-size:15px}.card{padding:12px;margin-top:9px;border-radius:10px}.title{margin-bottom:8px}table{font-size:9px}th,td{padding:5px}}
+</style>
 </head>
 <body>
 <div id="toast" class="toast"></div>
 
-<section id="loginView" class="login-view">
-  <div class="login-panel">
-    <div class="brand">
-      <div class="logo">MG</div>
-      <div><b>MULIA GROUP</b><span>INVESTOR CENTER • SIMPLE V1</span></div>
-    </div>
-
-    <div id="loginBox">
-      <h1>Masuk ke portal</h1>
-      <p>Versi sederhana tanpa folder <code>/api</code> dan tanpa server Vercel Function.</p>
-      <form id="loginForm">
-        <label>Username<input id="loginUsername" required autocomplete="username"></label>
-        <label>Password<input id="loginPassword" type="password" required autocomplete="current-password"></label>
-        <button class="btn primary" type="submit">Masuk</button>
-      </form>
-      <button id="setupOpenButton" class="btn secondary hidden" type="button">Buat Akun Owner Pertama</button>
-      <div id="loginMessage" class="message"></div>
-    </div>
-
-    <div id="setupBox" class="hidden">
-      <h1>Buat Owner pertama</h1>
-      <p>Kode setup harus sama dengan kode yang Anda isi di file SQL.</p>
-      <form id="setupForm">
-        <label>Nama Owner<input id="setupName" value="Abdul Aziz Efendi" required></label>
-        <label>Username<input id="setupUsername" required></label>
-        <label>Password<input id="setupPassword" type="password" minlength="8" required></label>
-        <label>Ulangi Password<input id="setupPassword2" type="password" minlength="8" required></label>
-        <label>Kode Setup<input id="setupCode" type="password" required></label>
-        <button class="btn primary" type="submit">Buat Akun Owner</button>
-        <button id="setupCancelButton" class="btn secondary" type="button">Kembali</button>
-      </form>
-      <div id="setupMessage" class="message"></div>
-    </div>
+<section id="loginView" class="login">
+  <div class="left">
+    <div class="brand"><div class="logo">MG</div><div><b>MULIA GROUP</b><span>INVESTOR CENTER • STANDALONE FINAL</span></div></div>
+    <h1>Masuk ke portal</h1>
+    <p>Versi paling sederhana. Tidak memakai Supabase, API, environment variable, atau setup tambahan.</p>
+    <form id="loginForm">
+      <label>Username<input id="loginUsername" required autocomplete="username"></label>
+      <label>Password<input id="loginPassword" type="password" required autocomplete="current-password"></label>
+      <button class="btn primary" type="submit">Masuk</button>
+    </form>
+    <div class="message" id="loginMessage"></div>
+    <p style="font-size:11px;margin-top:20px"><b>Login Owner awal:</b><br>Username: <code>owner</code><br>Password: <code>Mulia2026!</code></p>
   </div>
-
-  <div class="login-visual">
-    <div>
-      <small>PORTAL INVESTOR MULIA GROUP</small>
-      <h2>Satu link untuk Owner dan investor.</h2>
-      <p>Lebih sederhana: GitHub/Vercel hanya menyajikan file HTML. Semua data langsung terhubung ke Supabase melalui fungsi aman.</p>
-    </div>
-  </div>
+  <div class="right"><div><small>PORTAL INVESTOR MULIA GROUP</small><h2>Satu file, langsung jalan.</h2><p>Data disimpan di browser. Backup dan restore tersedia agar bisa dipindahkan ke perangkat lain.</p></div></div>
 </section>
 
 <div id="appView" class="hidden">
   <header class="topbar no-print">
-    <div class="brand compact">
-      <div class="logo">MG</div>
-      <div><b>MULIA GROUP</b><span>INVESTOR CENTER</span></div>
-    </div>
+    <div class="brand compact"><div class="logo">MG</div><div><b>MULIA GROUP</b><span>INVESTOR CENTER</span></div></div>
     <div class="actions">
       <select id="investorSelect" class="hidden"></select>
       <select id="yearSelect"></select>
@@ -71,11 +55,7 @@
 
   <main class="wrap">
     <section class="hero">
-      <div>
-        <small>LAPORAN INVESTASI</small>
-        <h1 id="reportTitle">Mulia Group Investor Report</h1>
-        <p id="greeting">Ringkasan perkembangan investasi.</p>
-      </div>
+      <div><small>LAPORAN INVESTASI</small><h1 id="reportTitle">Mulia Group Investor Report</h1><p id="greeting">Ringkasan perkembangan investasi.</p></div>
       <div class="hero-meta"><span>PERIODE</span><b id="periodLabel">-</b><span>STATUS</span><b id="statusLabel">AKTIF</b></div>
     </section>
 
@@ -95,33 +75,23 @@
 
     <section class="card">
       <div class="title"><h2>Rekap Bulanan Lengkap</h2><p>Pemasukan, operasional, bagi hasil, pengeluaran, dan laba/rugi.</p></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Bulan</th><th>Pemasukan</th><th>Operasional</th><th>Bagi Hasil</th><th>Pengeluaran</th><th>Laba/Rugi</th></tr></thead>
-          <tbody id="monthlyRows"></tbody>
-          <tfoot id="monthlyFoot"></tfoot>
-        </table>
-      </div>
+      <div class="table-wrap"><table><thead><tr><th>Bulan</th><th>Pemasukan</th><th>Operasional</th><th>Bagi Hasil</th><th>Pengeluaran</th><th>Laba/Rugi</th></tr></thead><tbody id="monthlyRows"></tbody><tfoot id="monthlyFoot"></tfoot></table></div>
     </section>
 
     <section class="card">
       <div class="title"><h2>Rekap Bagi Hasil</h2><p>Pembagian berdasarkan laba bersih positif.</p></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Bulan</th><th>Pemasukan</th><th>Pengeluaran</th><th>Laba Bersih</th><th id="investorHead">Investor</th><th id="ownerHead">Owner</th><th id="savingHead">Tabungan</th></tr></thead>
-          <tbody id="shareRows"></tbody>
-          <tfoot id="shareFoot"></tfoot>
-        </table>
-      </div>
+      <div class="table-wrap"><table><thead><tr><th>Bulan</th><th>Pemasukan</th><th>Pengeluaran</th><th>Laba Bersih</th><th id="investorHead">Investor</th><th id="ownerHead">Owner</th><th id="savingHead">Tabungan</th></tr></thead><tbody id="shareRows"></tbody><tfoot id="shareFoot"></tfoot></table></div>
     </section>
   </main>
 </div>
 
 <dialog id="adminDialog">
-  <div class="dialog-head"><div><small>OWNER ONLY</small><h2>Panel Admin</h2></div><button class="close-button" data-close="adminDialog">×</button></div>
+  <div class="dialog-head"><div><small>OWNER ONLY</small><h2>Panel Admin</h2></div><button class="close" data-close="adminDialog">×</button></div>
   <div class="tabs">
     <button class="tab active" data-tab="investors">Investor</button>
-    <button class="tab" data-tab="sync">Upload JSON</button>
+    <button class="tab" data-tab="manual">Input Manual</button>
+    <button class="tab" data-tab="backup">Backup</button>
+    <button class="tab" data-tab="password">Password Owner</button>
   </div>
   <div class="dialog-body">
     <section id="tab-investors">
@@ -129,27 +99,48 @@
       <div class="table-wrap"><table><thead><tr><th>Investor</th><th>Username</th><th>Perusahaan</th><th>Porsi</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="adminInvestorRows"></tbody></table></div>
     </section>
 
-    <section id="tab-sync" class="hidden">
+    <section id="tab-manual" class="hidden">
       <div class="form-grid">
-        <label>Investor<select id="syncInvestor"></select></label>
-        <label>Tahun<select id="syncYear"></select></label>
-        <label>File JSON<input id="syncFile" type="file" accept=".json"></label>
+        <label>Investor<select id="manualInvestor"></select></label>
+        <label>Tahun<select id="manualYear"></select></label>
+        <label>Bulan<select id="manualMonth"></select></label>
+        <label>Pemasukan<input id="manualIncome" type="number" step="1000"></label>
+        <label>Operasional<input id="manualOperational" type="number" step="1000"></label>
+        <label>Bagi Hasil<input id="manualProfitSharing" type="number" step="1000"></label>
+        <label>Pengeluaran<input id="manualExpense" type="number" step="1000"></label>
+        <label>Laba Bersih<input id="manualProfit" type="number" step="1000"></label>
       </div>
-      <div id="syncPreview" class="preview">Belum ada file dipilih.</div>
-      <button id="saveSyncButton" class="btn gold" disabled>Simpan Laporan</button>
+      <button id="saveManualButton" class="btn gold">Simpan Laporan Bulanan</button>
+    </section>
+
+    <section id="tab-backup" class="hidden">
+      <p>Download backup untuk memindahkan data ke browser atau perangkat lain.</p>
+      <div class="form-actions" style="justify-content:flex-start">
+        <button id="downloadBackupButton" class="btn secondary">Download Backup</button>
+        <label class="btn secondary" style="display:inline-block;margin:0">Import Backup<input id="importBackupInput" type="file" accept=".json" hidden></label>
+        <button id="resetAllButton" class="btn danger">Reset Semua Data</button>
+      </div>
+    </section>
+
+    <section id="tab-password" class="hidden">
+      <div class="form-grid">
+        <label>Password Owner Baru<input id="newOwnerPassword" type="password" minlength="8"></label>
+        <label>Ulangi Password<input id="newOwnerPassword2" type="password" minlength="8"></label>
+      </div>
+      <button id="saveOwnerPasswordButton" class="btn primary">Ganti Password Owner</button>
     </section>
   </div>
 </dialog>
 
 <dialog id="investorDialog">
-  <div class="dialog-head"><div><small>OWNER ONLY</small><h2 id="investorDialogTitle">Tambah Investor</h2></div><button class="close-button" data-close="investorDialog">×</button></div>
+  <div class="dialog-head"><div><small>OWNER ONLY</small><h2 id="investorDialogTitle">Tambah Investor</h2></div><button class="close" data-close="investorDialog">×</button></div>
   <form id="investorForm" class="dialog-body">
     <input id="formInvestorId" type="hidden">
     <div class="form-grid">
       <label>Nama Investor<input id="formName" required></label>
       <label>Username<input id="formUsername" required></label>
       <label>Password<input id="formPassword" type="password" minlength="8"></label>
-      <label>Perusahaan<select id="formCompany"><option value="BM">CV. BERKAH MULIA ADV</option><option value="DM">PT. DWI MULIA ADVERTISING</option><option value="AP">PT. AZKIA MULIA PERADA</option></select></label>
+      <label>Perusahaan<select id="formCompany"><option>CV. BERKAH MULIA ADV</option><option>PT. DWI MULIA ADVERTISING</option><option>PT. AZKIA MULIA PERADA</option></select></label>
       <label>Porsi Investor (%)<input id="formShare" type="number" min="0" max="100" step="0.01" required></label>
       <label>Porsi Owner (%)<input id="formOwnerShare" type="number" min="0" max="100" step="0.01" required></label>
       <label>Tabungan Bersama (%)<input id="formSavingShare" type="number" min="0" max="100" step="0.01" required></label>
@@ -159,6 +150,126 @@
   </form>
 </dialog>
 
-<script type="module" src="./app.js"></script>
+<script>
+const DB_KEY='MULIA_INVESTOR_STANDALONE_FINAL_V1';
+const SESSION_KEY='MULIA_INVESTOR_STANDALONE_SESSION_V1';
+const MONTHS=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const $=id=>document.getElementById(id);
+const num=v=>Number.isFinite(Number(v))?Number(v):0;
+const money=n=>'Rp '+Math.round(num(n)).toLocaleString('id-ID');
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const defaultDB=()=>({owner:{name:'Abdul Aziz Efendi',username:'owner',password:'Mulia2026!'},investors:[],reports:[]});
+let db=loadDB(),session=loadSession(),activeInvestor=null;
+
+function loadDB(){try{return JSON.parse(localStorage.getItem(DB_KEY))||defaultDB()}catch{return defaultDB()}}
+function saveDB(){localStorage.setItem(DB_KEY,JSON.stringify(db))}
+function loadSession(){try{return JSON.parse(sessionStorage.getItem(SESSION_KEY))||null}catch{return null}}
+function saveSession(data){session=data;sessionStorage.setItem(SESSION_KEY,JSON.stringify(data))}
+function toast(message){const e=$('toast');e.textContent=message;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
+function show(id,yes=true){$(id).classList.toggle('hidden',!yes)}
+function signed(v){return `<span class="${v<0?'negative':'positive'}">${money(v)}</span>`}
+function uid(){return 'INV-'+Date.now().toString().slice(-6)}
+
+function bind(){
+  $('loginForm').addEventListener('submit',login);
+  $('logoutButton').addEventListener('click',logout);
+  $('adminOpenButton').addEventListener('click',openAdmin);
+  $('addInvestorButton').addEventListener('click',()=>openInvestorForm());
+  $('investorForm').addEventListener('submit',saveInvestor);
+  $('investorSelect').addEventListener('change',()=>{activeInvestor=db.investors.find(x=>x.id===$('investorSelect').value)||db.investors[0];renderReport()});
+  $('yearSelect').addEventListener('change',renderReport);
+  $('manualInvestor').addEventListener('change',loadManual);
+  $('manualYear').addEventListener('change',loadManual);
+  $('manualMonth').addEventListener('change',loadManual);
+  $('saveManualButton').addEventListener('click',saveManual);
+  $('downloadBackupButton').addEventListener('click',downloadBackup);
+  $('importBackupInput').addEventListener('change',importBackup);
+  $('resetAllButton').addEventListener('click',resetAll);
+  $('saveOwnerPasswordButton').addEventListener('click',changeOwnerPassword);
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.close).close()));
+  document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+    ['investors','manual','backup','password'].forEach(t=>show('tab-'+t,b.dataset.tab===t));
+    if(b.dataset.tab==='manual')loadManual();
+  }));
+}
+
+function boot(){bind();if(session)enterApp();else showLogin()}
+function showLogin(){show('loginView',true);show('appView',false)}
+function login(e){
+  e.preventDefault();const u=$('loginUsername').value.trim(),p=$('loginPassword').value;
+  if(u===db.owner.username&&p===db.owner.password){saveSession({role:'owner'});enterApp();return}
+  const investor=db.investors.find(i=>i.username===u&&i.password===p&&i.active);
+  if(investor){saveSession({role:'investor',investorId:investor.id});enterApp();return}
+  $('loginMessage').textContent='Username atau password tidak sesuai.'
+}
+function logout(){sessionStorage.removeItem(SESSION_KEY);session=null;showLogin()}
+function enterApp(){
+  show('loginView',false);show('appView',true);show('adminOpenButton',session.role==='owner');show('investorSelect',session.role==='owner');
+  fillYears();activeInvestor=session.role==='owner'?db.investors[0]:db.investors.find(i=>i.id===session.investorId);refreshSelectors();renderReport()
+}
+function fillYears(){const y=[];for(let n=new Date().getFullYear()+1;n>=2024;n--)y.push(`<option>${n}</option>`);$('yearSelect').innerHTML=y.join('');$('yearSelect').value=String(new Date().getFullYear())}
+function refreshSelectors(){
+  $('investorSelect').innerHTML=db.investors.map(i=>`<option value="${i.id}">${esc(i.name)} — ${esc(i.company)}</option>`).join('');
+  if(activeInvestor)$('investorSelect').value=activeInvestor.id;
+}
+function renderReport(){
+  const year=+$('yearSelect').value,i=activeInvestor;
+  $('periodLabel').textContent=year;$('investorName').textContent=i?.name||'-';$('companyName').textContent=i?.company||'-';$('sharePercent').textContent=i?i.share+'%':'-';$('investorCode').textContent=i?.id||'-';$('statusLabel').textContent=i?.active===false?'NONAKTIF':'AKTIF';$('reportTitle').textContent=i?`Laporan Investor ${i.company}`:'Mulia Group Investor Report';$('greeting').textContent=i?`Yth. Bapak/Ibu ${i.name}, berikut laporan perkembangan investasi Anda.`:'Belum ada investor.';
+  const map=new Map(db.reports.filter(r=>r.investorId===i?.id&&r.year===year).map(r=>[r.month,r]));const t={income:0,operational:0,profitSharing:0,expense:0,profit:0,investor:0,owner:0,saving:0};
+  const rows=MONTHS.map((m,idx)=>{const r=map.get(idx+1)||{};const v={income:num(r.income),operational:num(r.operational),profitSharing:num(r.profitSharing),expense:num(r.expense),profit:num(r.profit),investor:num(r.investor),owner:num(r.owner),saving:num(r.saving)};Object.keys(v).forEach(k=>t[k]+=v[k]);return{m,v}});
+  $('monthlyRows').innerHTML=rows.map(r=>`<tr><td>${r.m} ${year}</td><td>${money(r.v.income)}</td><td>${money(r.v.operational)}</td><td>${money(r.v.profitSharing)}</td><td>${money(r.v.expense)}</td><td>${signed(r.v.profit)}</td></tr>`).join('');
+  $('monthlyFoot').innerHTML=`<tr><td>TOTAL</td><td>${money(t.income)}</td><td>${money(t.operational)}</td><td>${money(t.profitSharing)}</td><td>${money(t.expense)}</td><td>${signed(t.profit)}</td></tr>`;
+  $('investorHead').innerHTML=`Investor<br><small>${num(i?.share)}%</small>`;$('ownerHead').innerHTML=`Owner<br><small>${num(i?.ownerShare||60)}%</small>`;$('savingHead').innerHTML=`Tabungan<br><small>${num(i?.savingShare||30)}%</small>`;
+  $('shareRows').innerHTML=rows.map(r=>`<tr><td>${r.m}</td><td>${money(r.v.income)}</td><td>${money(r.v.expense)}</td><td>${signed(r.v.profit)}</td><td>${money(r.v.investor)}</td><td>${money(r.v.owner)}</td><td>${money(r.v.saving)}</td></tr>`).join('');
+  $('shareFoot').innerHTML=`<tr><td>TOTAL ${year}</td><td>${money(t.income)}</td><td>${money(t.expense)}</td><td>${signed(t.profit)}</td><td>${money(t.investor)}</td><td>${money(t.owner)}</td><td>${money(t.saving)}</td></tr>`;
+  $('sumIncome').textContent=money(t.income);$('sumExpense').textContent=money(t.expense);$('sumProfit').textContent=money(t.profit);$('sumInvestor').textContent=money(t.investor)
+}
+function openAdmin(){$('adminDialog').showModal();refreshAdmin()}
+function refreshAdmin(){
+  $('adminInvestorRows').innerHTML=db.investors.map(i=>`<tr><td><b>${esc(i.name)}</b><br><small>${i.id}</small></td><td>${esc(i.username)}</td><td>${esc(i.company)}</td><td>${i.share}%</td><td>${i.active?'Aktif':'Nonaktif'}</td><td><button class="btn secondary edit-investor" data-id="${i.id}">Edit</button></td></tr>`).join('')||'<tr><td colspan="6">Belum ada investor.</td></tr>';
+  document.querySelectorAll('.edit-investor').forEach(b=>b.addEventListener('click',()=>openInvestorForm(db.investors.find(i=>i.id===b.dataset.id))));
+  const opts=db.investors.map(i=>`<option value="${i.id}">${esc(i.name)} — ${esc(i.company)}</option>`).join('');
+  $('manualInvestor').innerHTML=opts;
+  const ys=[];for(let y=new Date().getFullYear()+1;y>=2024;y--)ys.push(`<option>${y}</option>`);$('manualYear').innerHTML=ys.join('');
+  $('manualMonth').innerHTML=MONTHS.map((m,i)=>`<option value="${i+1}">${m}</option>`).join('');
+}
+function openInvestorForm(i=null){
+  $('investorForm').reset();$('formInvestorId').value=i?.id||'';$('investorDialogTitle').textContent=i?'Edit Investor':'Tambah Investor';$('formName').value=i?.name||'';$('formUsername').value=i?.username||'';$('formCompany').value=i?.company||'CV. BERKAH MULIA ADV';$('formShare').value=i?.share??10;$('formOwnerShare').value=i?.ownerShare??60;$('formSavingShare').value=i?.savingShare??30;$('formActive').value=String(i?.active??true);$('formPassword').required=!i;$('formPassword').placeholder=i?'Kosongkan jika tidak diubah':'Minimal 8 karakter';$('investorDialog').showModal()
+}
+function saveInvestor(e){
+  e.preventDefault();const id=$('formInvestorId').value||uid(),password=$('formPassword').value;let i=db.investors.find(x=>x.id===id);
+  const share=num($('formShare').value),ownerShare=num($('formOwnerShare').value),savingShare=num($('formSavingShare').value);
+  if(Math.abs(share+ownerShare+savingShare-100)>.001)return toast('Total persentase harus 100%.');
+  if(!i&&password.length<8)return toast('Password minimal 8 karakter.');
+  const data={id,name:$('formName').value.trim(),username:$('formUsername').value.trim(),password:i?.password||password,company:$('formCompany').value,share,ownerShare,savingShare,active:$('formActive').value==='true'};
+  if(password)data.password=password;
+  if(i)Object.assign(i,data);else db.investors.push(data);
+  activeInvestor=data;saveDB();$('investorDialog').close();refreshAdmin();refreshSelectors();renderReport();toast('Investor berhasil disimpan.')
+}
+function loadManual(){
+  const investorId=$('manualInvestor').value,year=+$('manualYear').value,month=+$('manualMonth').value;
+  const r=db.reports.find(x=>x.investorId===investorId&&x.year===year&&x.month===month)||{};
+  $('manualIncome').value=r.income||'';$('manualOperational').value=r.operational||'';$('manualProfitSharing').value=r.profitSharing||'';$('manualExpense').value=r.expense||'';$('manualProfit').value=r.profit||''
+}
+function saveManual(){
+  const investor=db.investors.find(i=>i.id===$('manualInvestor').value);if(!investor)return toast('Buat investor terlebih dahulu.');
+  const year=+$('manualYear').value,month=+$('manualMonth').value;let r=db.reports.find(x=>x.investorId===investor.id&&x.year===year&&x.month===month);
+  const profit=num($('manualProfit').value),base=Math.max(0,profit);
+  const data={investorId:investor.id,year,month,income:num($('manualIncome').value),operational:num($('manualOperational').value),profitSharing:num($('manualProfitSharing').value),expense:num($('manualExpense').value),profit,investor:base*investor.share/100,owner:base*investor.ownerShare/100,saving:base*investor.savingShare/100};
+  if(r)Object.assign(r,data);else db.reports.push(data);activeInvestor=investor;$('investorSelect').value=investor.id;$('yearSelect').value=String(year);saveDB();renderReport();toast('Laporan bulanan disimpan.')
+}
+function downloadBackup(){
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.download='Mulia_Investor_Backup.json';a.click();URL.revokeObjectURL(a.href)
+}
+async function importBackup(e){
+  try{const x=JSON.parse(await e.target.files[0].text());if(!x.owner||!Array.isArray(x.investors)||!Array.isArray(x.reports))throw Error('Format backup tidak sesuai.');db=x;saveDB();refreshAdmin();refreshSelectors();activeInvestor=db.investors[0];renderReport();toast('Backup berhasil diimpor.')}catch(err){toast(err.message)}
+}
+function resetAll(){if(confirm('Hapus seluruh data lokal dan kembali ke login Owner awal?')){db=defaultDB();saveDB();sessionStorage.removeItem(SESSION_KEY);location.reload()}}
+function changeOwnerPassword(){
+  const p=$('newOwnerPassword').value,p2=$('newOwnerPassword2').value;if(p.length<8)return toast('Password minimal 8 karakter.');if(p!==p2)return toast('Konfirmasi password tidak sama.');db.owner.password=p;saveDB();$('newOwnerPassword').value='';$('newOwnerPassword2').value='';toast('Password Owner berhasil diubah.')
+}
+boot();
+</script>
 </body>
 </html>
