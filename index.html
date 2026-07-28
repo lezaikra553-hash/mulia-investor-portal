@@ -65,4 +65,106 @@ async function backupDrive(version=false){if(!token)return googleLogin();try{awa
 async function restoreDrive(){if(!token)return googleLogin();try{let f=await driveFind(DRIVE_NAME);if(!f)throw Error('Backup Drive belum ada');let r=await fetch(`https://www.googleapis.com/drive/v3/files/${f.id}?alt=media`,{headers:{Authorization:'Bearer '+token}});let x=await r.json();db=x.db||x;saveDB('Restore Google Drive');alert('Restore berhasil.')}catch(e){alert(e.message)}}
 async function syncDrive(){await backupDrive(false)}
 (function init(){let owner=localStorage.getItem(OWNER_CACHE);if(owner&&!Object.keys(db.companies||{}).length){try{let x=JSON.parse(owner);Object.entries(x).forEach(([code,v])=>{if(COMPANIES[code])db.companies[code]=normalizeCompany(v,code)});localStorage.setItem(DB_KEY,JSON.stringify(db))}catch(e){}}let s=sessionStorage.getItem('MULIA_INVESTOR_SESSION');if(s){try{current=JSON.parse(s);showApp()}catch(e){}}payDate.value=new Date().toISOString().slice(0,10);payPeriod.value=new Date().toISOString().slice(0,7);reportTo.value=new Date().toISOString().slice(0,7)})();
-</script></body></html>
+</script>
+
+<!-- PATCH V2: TRUE COMPANY PROFIT-SHARING SYNC -->
+<script id="investor-true-sync-v2">
+(function(){
+'use strict';
+const MONTH_NAMES=['januari','februari','maret','april','mei','juni','juli','agustus','september','oktober','november','desember'];
+const SOURCE_CFG={
+ BERKAH:{code:'BM',cash:['BM_KAS_BESAR_IMPORT_EXCEL_V1','BM_KAS_BESAR_ACTIVE_DB','BM_KAS_IMPORT_EXCEL_V1'],profit:['BM_BAGI_HASIL_SIMPLE_V1','BM_PROFIT_SHARING_V1'],snapshot:['BM_OWNER_SNAPSHOT_V3','BM_OWNER_SNAPSHOT_V1']},
+ DWI:{code:'DM',cash:['DMA_KAS_BESAR_ACTIVE_DB','dwiMuliaKas_V8_ENTERPRISE'],profit:['DMA_BAGI_HASIL_SIMPLE_V1','DMA_PROFIT_SHARING_V1'],snapshot:['DM_OWNER_SNAPSHOT_V3','DM_OWNER_SNAPSHOT_V1']},
+ AZKIA:{code:'AP',cash:['AP_KAS_BESAR_ACTIVE_DB','AP_KAS_V8_ENTERPRISE','azkiaMuliaKas_V8_ENTERPRISE'],profit:['AP_BAGI_HASIL_SIMPLE_V1','AP_PROFIT_SHARING_V1'],snapshot:['AP_OWNER_SNAPSHOT_V3','AP_OWNER_SNAPSHOT_V1']}
+};
+const safeParse=v=>{try{return typeof v==='string'?JSON.parse(v):v}catch(e){return null}};
+const first=(obj,keys)=>{for(const k of keys){const v=obj&&obj[k];if(v!==undefined&&v!==null)return safeParse(v)}return null};
+const normName=v=>String(v||'').trim().toUpperCase().replace(/\s+/g,' ');
+const sourceYear=c=>{const d=new Date(c?.updatedAt||c?.raw?.syncedAt||c?.raw?.createdAt||Date.now());return isNaN(d)?new Date().getFullYear():d.getFullYear()};
+function sourceBundle(code){
+ const cfg=SOURCE_CFG[code], c=db.companies?.[code]||{}, raw=c.raw||{}, storage=c.storage||extractStorage(raw)||{};
+ const embedded=raw.ownerSnapshot||raw.snapshot||raw.payload?.ownerSnapshot||null;
+ const snap=embedded||first(storage,cfg.snapshot)||((raw.schema||'').includes('OWNER_SNAPSHOT')?raw:null)||{};
+ const cash=first(storage,cfg.cash)||snap.cashSource||{};
+ const profit=first(storage,cfg.profit)||snap.profitSharing||{};
+ return {cfg,c,raw,storage,snap,cash,profit};
+}
+function monthPeriod(k,year){
+ const z=String(k||'').trim().toLowerCase();
+ if(/^\d{4}-\d{2}$/.test(z))return z;
+ const m=MONTH_NAMES.indexOf(z);if(m>=0)return `${year}-${String(m+1).padStart(2,'0')}`;
+ const hit=z.match(/(20\d{2})[-_/ ]?(0?[1-9]|1[0-2])/);if(hit)return `${hit[1]}-${String(+hit[2]).padStart(2,'0')}`;
+ return '';
+}
+function sumRows(a){return(Array.isArray(a)?a:[]).reduce((s,x)=>s+n(x?.amount??x?.nominal??x?.total??x?.value),0)}
+function sourceShares(code){
+ const p=sourceBundle(code).profit||{};
+ const a=Array.isArray(p.shares)?p.shares:Array.isArray(p.recipients)?p.recipients:Array.isArray(p.penerima)?p.penerima:[];
+ return a.map(x=>({name:String(x.name??x.nama??x.label??'').trim(),percent:n(x.percent??x.pct??x.persentase)})).filter(x=>x.name);
+}
+function linkedShare(inv){const shares=sourceShares(inv.company);return shares.find(x=>normName(x.name)===normName(inv.name))||null}
+window.monthlyData=function(code){
+ const b=sourceBundle(code), year=sourceYear(b.c), out={};
+ const put=(period,income,expense,profit)=>{if(!period)return;out[period]={income:n(income),expense:n(expense),profit:Number.isFinite(Number(profit))?n(profit):n(income)-n(expense)};};
+ // Snapshot V3 is the preferred, already-normalized Owner source.
+ const sm=b.snap?.cash?.monthly;
+ if(sm&&typeof sm==='object')Object.entries(sm).forEach(([k,x])=>put(monthPeriod(k,year),x?.income,x?.expense,x?.profit));
+ // Kas Besar rekap is the same source used by each company's Bagi Hasil page.
+ const rekap=b.cash?.rekap||{};
+ Object.entries(rekap).forEach(([k,r])=>{
+   const period=monthPeriod(k,year);if(!period)return;
+   const income=n(r?.pemasukanReal??r?.pemasukan);
+   const op=n(r?.operasionalHarianReal??r?.operasional);
+   const bor=code==='BERKAH'?n(r?.boronganKaryawanReal??r?.borongan):0;
+   const expense=n(r?.pengeluaranReal)||(op+bor);
+   const profit=n(r?.labaRugiReal)||(income-expense);
+   put(period,income,expense,profit);
+ });
+ // Transactions fill gaps and follow the exact company rules.
+ const tx=b.cash?.transactions||{};
+ Object.entries(tx).forEach(([k,m])=>{
+   const period=monthPeriod(k,year);if(!period||out[period])return;
+   const income=sumRows(m?.pemasukan);
+   let expense=sumRows(m?.operasional)+sumRows(m?.pengeluaran);
+   if(code==='BERKAH')expense+=sumRows(m?.indra)+sumRows(m?.andre)+sumRows(m?.borongan);
+   put(period,income,expense,income-expense);
+ });
+ return out;
+};
+window.investorMonthly=function(inv){
+ const m=window.monthlyData(inv.company), linked=linkedShare(inv), pct=linked?linked.percent:n(inv.percent);
+ return Object.entries(m).sort(([a],[b])=>a.localeCompare(b)).map(([period,x])=>{
+   const profit=Number.isFinite(Number(x.profit))?n(x.profit):n(x.income)-n(x.expense);
+   const share=profit>0?profit*pct/100:0,paid=paymentTotal(inv.id,period);
+   return{period,income:n(x.income),expense:n(x.expense),profit,percent:pct,share,paid,remaining:Math.max(0,share-paid),status:share<=0?'Tidak Ada Hak':paid<=0?'Belum Dibayar':paid+1<share?'Sebagian':'Lunas',linked:!!linked};
+ });
+};
+const oldSaveInvestor=window.saveInvestor;
+window.saveInvestor=function(){
+ const name=document.getElementById('invName').value.trim(), shares=sourceShares(companyCode()), match=shares.find(x=>normName(x.name)===normName(name));
+ if(shares.length&&!match){alert('Nama investor harus sama dengan nama penerima pada menu Bagi Hasil usaha. Pilihan terbaca: '+shares.map(x=>x.name+' '+x.percent+'%').join(', '));return}
+ if(match)document.getElementById('invPct').value=match.percent;
+ oldSaveInvestor();
+};
+const oldEditInvestor=window.editInvestor;
+window.editInvestor=function(id){oldEditInvestor(id);const x=db.investors.find(v=>v.id===id),m=x&&linkedShare(x);if(m)document.getElementById('invPct').value=m.percent};
+function pullSameOrigin(){
+ let changed=false;
+ Object.entries(SOURCE_CFG).forEach(([code,cfg])=>{
+   const storage={};[...cfg.cash,...cfg.profit,...cfg.snapshot].forEach(k=>{const v=localStorage.getItem(k);if(v)storage[k]=safeParse(v)});
+   if(Object.keys(storage).length){db.companies[code]=normalizeCompany({companyCode:code,storage,syncedAt:new Date().toISOString()},code);changed=true}
+ });
+ if(changed){db.updatedAt=new Date().toISOString();localStorage.setItem(DB_KEY,JSON.stringify(db));}
+ return changed;
+}
+const oldRenderDashboard=window.renderDashboard;
+window.renderDashboard=function(){oldRenderDashboard();const inv=selectedInvestor();if(!inv)return;const linked=linkedShare(inv),stamp=document.getElementById('syncStamp');if(stamp){stamp.textContent=linked?'Sinkron Bagi Hasil • '+linked.percent+'%':'Belum terhubung ke nama Bagi Hasil';stamp.className='badge '+(linked?'ok':'red')};document.querySelectorAll('#monthlyRows tr').forEach((tr,i)=>{const rows=investorMonthly(inv);if(rows[i]){const cells=tr.children;if(cells[4])cells[4].textContent=rows[i].percent+'%'}})};
+const oldRenderReport=window.renderReport;
+window.renderReport=function(){oldRenderReport();const inv=selectedInvestor(),m=inv&&linkedShare(inv);if(m){const note=document.createElement('div');note.className='badge ok no-print';note.style.marginTop='10px';note.textContent='Persentase tersinkron dari Bagi Hasil '+COMPANIES[inv.company].short+': '+m.percent+'%';document.getElementById('reportBody')?.prepend(note)}};
+function refreshTrueSync(){if(pullSameOrigin())renderAll()}
+window.addEventListener('storage',e=>{if(Object.values(SOURCE_CFG).some(c=>[...c.cash,...c.profit,...c.snapshot].includes(e.key)))setTimeout(refreshTrueSync,50)});
+setInterval(refreshTrueSync,5000);
+setTimeout(()=>{pullSameOrigin();renderAll();document.title='Portal Investor Mulia Group V2 - Sinkron Bagi Hasil';},100);
+})();
+</script>
+</body></html>
