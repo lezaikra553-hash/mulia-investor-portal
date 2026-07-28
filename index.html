@@ -1,275 +1,68 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b1324">
-<title>Mulia Group Investor Center — Standalone Final</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mulia Group — Portal Investor</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-:root{--navy:#0b1324;--navy2:#172844;--gold:#c79b43;--gold2:#ead59f;--bg:#eef2f6;--line:#d8e0ea;--text:#111827;--muted:#667085;--green:#087443;--red:#d92d20}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}.hidden{display:none!important}
-.login{min-height:100vh;display:grid;grid-template-columns:430px 1fr}.left{background:#fff;padding:50px;display:flex;flex-direction:column;justify-content:center}.brand{display:flex;gap:12px;align-items:center}.logo{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--gold),var(--gold2));display:grid;place-items:center;font-weight:900;color:var(--navy)}.brand b,.brand span{display:block}.brand span{font-size:9px;letter-spacing:.14em;color:var(--muted);margin-top:3px}
-.left h1{font-size:33px;margin:38px 0 10px}.left p{color:var(--muted);line-height:1.7}.right{background:radial-gradient(circle at 75% 18%,rgba(199,155,67,.25),transparent 35%),linear-gradient(145deg,var(--navy),var(--navy2));display:grid;place-items:center;padding:60px;color:#fff}.right>div{max-width:600px}.right small{color:var(--gold2);font-weight:900;letter-spacing:.15em}.right h2{font-family:Georgia,serif;font-size:49px;line-height:1.12;margin:18px 0}.right p{color:#cbd5e1;font-size:17px;line-height:1.7}
-label{display:grid;gap:7px;font-size:11px;font-weight:800;margin-top:13px}input,select{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;outline:none;background:#fff}input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(199,155,67,.13)}
-.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:800;cursor:pointer}.primary{background:var(--navy);color:#fff}.gold{background:var(--gold);color:var(--navy)}.secondary{background:#fff;border:1px solid var(--line)}.danger{background:#b42318;color:#fff}.dark{background:#24324a;color:#fff}.btn:disabled{opacity:.45}.left .btn{width:100%;margin-top:15px}.message{min-height:18px;margin-top:10px;font-size:12px;color:var(--red)}
-.topbar{background:var(--navy);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;position:sticky;top:0;z-index:10}.brand.compact .logo{width:40px;height:40px}.brand.compact span{color:#bac5d4}.actions{display:flex;gap:8px;align-items:center}.actions select{width:auto}
-.wrap{max-width:1240px;margin:25px auto;padding:0 18px 40px}.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:22px;padding:30px 34px;display:flex;justify-content:space-between;gap:25px}.hero small{color:var(--gold2);font-weight:900;letter-spacing:.15em}.hero h1{font-family:Georgia,serif;font-size:38px;margin:10px 0}.hero p{color:#cbd5e1;margin:0}.hero-meta{text-align:right;display:grid;align-content:center;gap:5px}.hero-meta span{font-size:9px;color:#94a3b8;margin-top:7px}.hero-meta b{font-size:17px}
-.identity,.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:15px}.identity{background:#fff;border:1px solid var(--line);border-radius:15px}.identity>div{padding:16px;border-right:1px solid var(--line)}.identity>div:last-child{border:0}.identity small,.summary small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;font-weight:800}.identity b,.summary b{display:block;margin-top:7px}.summary{gap:11px}.summary article{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px}.summary article.highlight{background:#fff8e8;border-color:#ead59f}.summary b{font-size:21px}
-.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:17px}.title{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:14px}.title h2{font-size:18px;margin:0}.title p{margin:0;color:var(--muted);font-size:12px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{background:#f7f8fa;color:#344054;font-size:10px;text-transform:uppercase}tfoot td{background:#fff8e8;font-weight:900}.positive{color:var(--green);font-weight:800}.negative{color:var(--red);font-weight:800}
-dialog{width:min(1080px,calc(100% - 24px));max-height:92vh;border:0;border-radius:18px;padding:0;box-shadow:0 40px 100px rgba(0,0,0,.35)}dialog::backdrop{background:rgba(8,15,28,.72)}.dialog-head{background:var(--navy);color:#fff;padding:17px 20px;display:flex;justify-content:space-between;align-items:center}.dialog-head small{color:var(--gold2);font-weight:900}.dialog-head h2{margin:4px 0 0}.close{border:0;background:rgba(255,255,255,.12);color:#fff;width:34px;height:34px;border-radius:9px;font-size:22px}.tabs{display:flex;gap:5px;padding:10px 20px;border-bottom:1px solid var(--line)}.tab{border:0;background:#f2f4f7;padding:9px 12px;border-radius:8px;font-weight:800}.tab.active{background:var(--navy);color:#fff}.dialog-body{padding:20px;overflow:auto}.tools{display:flex;justify-content:space-between;align-items:center}.tools h3{margin:0}.tools p{color:var(--muted);font-size:12px}.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.preview{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:13px;margin:12px 0;min-height:80px;font-size:12px}.form-actions{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--line);padding-top:16px}.toast{position:fixed;right:16px;bottom:16px;background:var(--navy);color:#fff;padding:11px 14px;border-radius:10px;opacity:0;transform:translateY(8px);transition:.2s;z-index:999}.toast.show{opacity:1;transform:none}
-@media(max-width:800px){.login{grid-template-columns:1fr}.right{display:none}.topbar{flex-wrap:wrap;gap:10px}.actions{width:100%;overflow:auto}.hero{display:block}.hero-meta{text-align:left;margin-top:18px}.identity,.summary{grid-template-columns:repeat(2,1fr)}.title{display:block}.title p{margin-top:6px}.form-grid{grid-template-columns:1fr}}
-@media(max-width:480px){.left{padding:28px}.identity,.summary{grid-template-columns:1fr}}
-@media print{@page{size:A4 landscape;margin:8mm}.no-print,dialog,.toast{display:none!important}body{background:#fff}.wrap{max-width:none;margin:0;padding:0}.hero{padding:18px 22px;border-radius:10px}.hero h1{font-size:25px}.identity,.summary{margin-top:8px}.identity>div,.summary article{padding:9px 11px}.summary b{font-size:15px}.card{padding:12px;margin-top:9px;border-radius:10px}.title{margin-bottom:8px}table{font-size:9px}th,td{padding:5px}}
+:root{--nav:#0f172a;--blue:#2563eb;--green:#059669;--red:#dc2626;--amber:#d97706;--bg:#f1f5f9;--card:#fff;--line:#dbe3ee;--muted:#64748b;--radius:16px;--shadow:0 10px 30px rgba(15,23,42,.08)}*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:#172033}.hidden{display:none!important}.gate{min-height:100vh;display:grid;place-items:center;padding:22px;background:linear-gradient(135deg,#0f172a,#1d4ed8)}.login{width:min(480px,100%);background:#fff;border-radius:24px;padding:28px;box-shadow:0 30px 90px rgba(0,0,0,.32)}.login h1{margin:0 0 6px}.login p{color:var(--muted);line-height:1.5}.field{margin:12px 0}.field label{display:block;font-size:12px;font-weight:800;margin-bottom:6px}.field input,.field select{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:11px;font-size:14px}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer;background:#e2e8f0;color:#172033}.btn.primary{background:var(--blue);color:white}.btn.green{background:var(--green);color:white}.btn.red{background:var(--red);color:white}.btn.dark{background:var(--nav);color:white}.btn.amber{background:var(--amber);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}.app{min-height:100vh}.top{background:var(--nav);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap}.brand{font-size:20px;font-weight:900}.brand small{display:block;font-size:10px;letter-spacing:.12em;color:#93c5fd;margin-top:3px}.actions{display:flex;gap:8px;flex-wrap:wrap}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:calc(100vh - 76px)}.side{background:#fff;border-right:1px solid var(--line);padding:18px}.side button{width:100%;text-align:left;margin-bottom:7px;padding:11px 12px;border:0;border-radius:10px;background:transparent;font-weight:800;color:#475569;cursor:pointer}.side button.active,.side button:hover{background:#eaf1ff;color:#1d4ed8}.main{padding:22px;min-width:0}.page{display:none}.page.active{display:block}.head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:16px}.head h1{margin:0}.head p{margin:5px 0;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:17px;box-shadow:var(--shadow);margin-bottom:15px}.metric small{color:var(--muted);font-weight:700}.metric b{display:block;font-size:21px;margin-top:7px}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;background:#fff}th,td{padding:11px 12px;border-bottom:1px solid #edf2f7;text-align:left;white-space:nowrap;font-size:13px}th{background:#f8fafc;color:#475569;font-size:11px;text-transform:uppercase}.money{text-align:right;font-variant-numeric:tabular-nums}.badge{display:inline-block;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900;background:#e2e8f0}.badge.ok{background:#d1fae5;color:#047857}.badge.warn{background:#fef3c7;color:#92400e}.badge.red{background:#fee2e2;color:#b91c1c}.formgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.muted{color:var(--muted);font-size:12px}.notice{padding:12px 14px;border-radius:11px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;margin-bottom:14px}.danger{background:#fff1f2;border-color:#fecdd3;color:#9f1239}.report{max-width:920px;margin:auto;background:#fff;padding:28px;border:1px solid var(--line);border-radius:12px}.reportHeader{display:flex;justify-content:space-between;border-bottom:3px solid #172033;padding-bottom:15px;margin-bottom:18px}.report h2,.report h3{margin:0}.signature{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:50px;text-align:center}.signature div:after{content:"";display:block;border-top:1px solid #111;margin-top:65px}.right{text-align:right}.small{font-size:12px}.status{font-size:12px;color:#cbd5e1}.split{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.formgrid{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.side{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.side button{min-width:max-content;margin:0 6px 0 0}}@media(max-width:600px){.grid,.formgrid,.split{grid-template-columns:1fr}.main{padding:14px}.report{padding:16px}.signature{gap:20px}}@media print{body{background:#fff}.top,.side,.no-print,.head{display:none!important}.layout{display:block}.main{padding:0}.page{display:none!important}.page.printable{display:block!important}.card{box-shadow:none;border:0;padding:0}.report{border:0;max-width:none;padding:0}.tablewrap{overflow:visible;border:0}th,td{font-size:10px;padding:7px}.reportHeader{margin-top:0}@page{size:A4 portrait;margin:14mm}}
 </style>
-</head>
-<body>
-<div id="toast" class="toast"></div>
-
-<section id="loginView" class="login">
-  <div class="left">
-    <div class="brand"><div class="logo">MG</div><div><b>MULIA GROUP</b><span>INVESTOR CENTER • STANDALONE FINAL</span></div></div>
-    <h1>Masuk ke portal</h1>
-    <p>Versi paling sederhana. Tidak memakai Supabase, API, environment variable, atau setup tambahan.</p>
-    <form id="loginForm">
-      <label>Username<input id="loginUsername" required autocomplete="username"></label>
-      <label>Password<input id="loginPassword" type="password" required autocomplete="current-password"></label>
-      <button class="btn primary" type="submit">Masuk</button>
-    </form>
-    <div class="message" id="loginMessage"></div>
-    <p style="font-size:11px;margin-top:20px"><b>Login Owner awal:</b><br>Username: <code>owner</code><br>Password: <code>Mulia2026!</code></p>
-  </div>
-  <div class="right"><div><small>PORTAL INVESTOR MULIA GROUP</small><h2>Satu file, langsung jalan.</h2><p>Data disimpan di browser. Backup dan restore tersedia agar bisa dipindahkan ke perangkat lain.</p></div></div>
-</section>
-
-<div id="appView" class="hidden">
-  <header class="topbar no-print">
-    <div class="brand compact"><div class="logo">MG</div><div><b>MULIA GROUP</b><span>INVESTOR CENTER</span></div></div>
-    <div class="actions">
-      <select id="investorSelect" class="hidden"></select>
-      <select id="yearSelect"></select>
-      <button class="btn secondary" onclick="window.print()">Print / PDF</button>
-      <button id="adminOpenButton" class="btn gold hidden">Admin</button>
-      <button id="logoutButton" class="btn dark">Keluar</button>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <section class="hero">
-      <div><small>LAPORAN INVESTASI</small><h1 id="reportTitle">Mulia Group Investor Report</h1><p id="greeting">Ringkasan perkembangan investasi.</p></div>
-      <div class="hero-meta"><span>PERIODE</span><b id="periodLabel">-</b><span>STATUS</span><b id="statusLabel">AKTIF</b></div>
-    </section>
-
-    <section class="identity">
-      <div><small>Nama Investor</small><b id="investorName">-</b></div>
-      <div><small>Perusahaan</small><b id="companyName">-</b></div>
-      <div><small>Porsi Investor</small><b id="sharePercent">-</b></div>
-      <div><small>ID Investor</small><b id="investorCode">-</b></div>
-    </section>
-
-    <section class="summary">
-      <article><small>Total Pemasukan</small><b id="sumIncome">Rp0</b></article>
-      <article><small>Total Pengeluaran</small><b id="sumExpense">Rp0</b></article>
-      <article><small>Total Laba Bersih</small><b id="sumProfit">Rp0</b></article>
-      <article class="highlight"><small>Hak Investor</small><b id="sumInvestor">Rp0</b></article>
-    </section>
-
-    <section class="card">
-      <div class="title"><h2>Rekap Bulanan Lengkap</h2><p>Pemasukan, operasional, bagi hasil, pengeluaran, dan laba/rugi.</p></div>
-      <div class="table-wrap"><table><thead><tr><th>Bulan</th><th>Pemasukan</th><th>Operasional</th><th>Bagi Hasil</th><th>Pengeluaran</th><th>Laba/Rugi</th></tr></thead><tbody id="monthlyRows"></tbody><tfoot id="monthlyFoot"></tfoot></table></div>
-    </section>
-
-    <section class="card">
-      <div class="title"><h2>Rekap Bagi Hasil</h2><p>Pembagian berdasarkan laba bersih positif.</p></div>
-      <div class="table-wrap"><table><thead><tr><th>Bulan</th><th>Pemasukan</th><th>Pengeluaran</th><th>Laba Bersih</th><th id="investorHead">Investor</th><th id="ownerHead">Owner</th><th id="savingHead">Tabungan</th></tr></thead><tbody id="shareRows"></tbody><tfoot id="shareFoot"></tfoot></table></div>
-    </section>
-  </main>
-</div>
-
-<dialog id="adminDialog">
-  <div class="dialog-head"><div><small>OWNER ONLY</small><h2>Panel Admin</h2></div><button class="close" data-close="adminDialog">×</button></div>
-  <div class="tabs">
-    <button class="tab active" data-tab="investors">Investor</button>
-    <button class="tab" data-tab="manual">Input Manual</button>
-    <button class="tab" data-tab="backup">Backup</button>
-    <button class="tab" data-tab="password">Password Owner</button>
-  </div>
-  <div class="dialog-body">
-    <section id="tab-investors">
-      <div class="tools"><div><h3>Akun Investor</h3><p>Buat atau ubah akun investor.</p></div><button id="addInvestorButton" class="btn primary">Tambah Investor</button></div>
-      <div class="table-wrap"><table><thead><tr><th>Investor</th><th>Username</th><th>Perusahaan</th><th>Porsi</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="adminInvestorRows"></tbody></table></div>
-    </section>
-
-    <section id="tab-manual" class="hidden">
-      <div class="form-grid">
-        <label>Investor<select id="manualInvestor"></select></label>
-        <label>Tahun<select id="manualYear"></select></label>
-        <label>Bulan<select id="manualMonth"></select></label>
-        <label>Pemasukan<input id="manualIncome" type="number" step="1000"></label>
-        <label>Operasional<input id="manualOperational" type="number" step="1000"></label>
-        <label>Bagi Hasil<input id="manualProfitSharing" type="number" step="1000"></label>
-        <label>Pengeluaran<input id="manualExpense" type="number" step="1000"></label>
-        <label>Laba Bersih<input id="manualProfit" type="number" step="1000"></label>
-      </div>
-      <button id="saveManualButton" class="btn gold">Simpan Laporan Bulanan</button>
-    </section>
-
-    <section id="tab-backup" class="hidden">
-      <p>Download backup untuk memindahkan data ke browser atau perangkat lain.</p>
-      <div class="form-actions" style="justify-content:flex-start">
-        <button id="downloadBackupButton" class="btn secondary">Download Backup</button>
-        <label class="btn secondary" style="display:inline-block;margin:0">Import Backup<input id="importBackupInput" type="file" accept=".json" hidden></label>
-        <button id="resetAllButton" class="btn danger">Reset Semua Data</button>
-      </div>
-    </section>
-
-    <section id="tab-password" class="hidden">
-      <div class="form-grid">
-        <label>Password Owner Baru<input id="newOwnerPassword" type="password" minlength="8"></label>
-        <label>Ulangi Password<input id="newOwnerPassword2" type="password" minlength="8"></label>
-      </div>
-      <button id="saveOwnerPasswordButton" class="btn primary">Ganti Password Owner</button>
-    </section>
-  </div>
-</dialog>
-
-<dialog id="investorDialog">
-  <div class="dialog-head"><div><small>OWNER ONLY</small><h2 id="investorDialogTitle">Tambah Investor</h2></div><button class="close" data-close="investorDialog">×</button></div>
-  <form id="investorForm" class="dialog-body">
-    <input id="formInvestorId" type="hidden">
-    <div class="form-grid">
-      <label>Nama Investor<input id="formName" required></label>
-      <label>Username<input id="formUsername" required></label>
-      <label>Password<input id="formPassword" type="password" minlength="8"></label>
-      <label>Perusahaan<select id="formCompany"><option>CV. BERKAH MULIA ADV</option><option>PT. DWI MULIA ADVERTISING</option><option>PT. AZKIA MULIA PERADA</option></select></label>
-      <label>Porsi Investor (%)<input id="formShare" type="number" min="0" max="100" step="0.01" required></label>
-      <label>Porsi Owner (%)<input id="formOwnerShare" type="number" min="0" max="100" step="0.01" required></label>
-      <label>Tabungan Bersama (%)<input id="formSavingShare" type="number" min="0" max="100" step="0.01" required></label>
-      <label>Status<select id="formActive"><option value="true">Aktif</option><option value="false">Nonaktif</option></select></label>
-    </div>
-    <div class="form-actions"><button class="btn secondary" type="button" data-close="investorDialog">Batal</button><button class="btn primary" type="submit">Simpan</button></div>
-  </form>
-</dialog>
-
+</head><body>
+<div id="loginGate" class="gate"><div class="login"><h1>Portal Investor Mulia Group</h1><p>Login investor hanya membuka usaha dan data bagi hasil miliknya. Admin mengelola akun investor pada usaha masing-masing.</p><div class="field"><label>Username</label><input id="loginUser" autocomplete="username" placeholder="Username"></div><div class="field"><label>Password</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Password"></div><button class="btn primary" style="width:100%" onclick="login()">Masuk</button><p id="loginInfo" class="muted">Akun awal admin: <b>admin.berkah</b>, <b>admin.dwi</b>, atau <b>admin.azkia</b> — password <b>123456</b>.</p></div></div>
+<div id="app" class="app hidden"><header class="top"><div class="brand">MULIA GROUP INVESTOR<small>TRANSPARANSI • KEAMANAN • KEPERCAYAAN</small></div><div class="actions no-print"><button id="googleBtn" class="btn green" onclick="googleLogin()">Login Google</button><button id="syncBtn" class="btn primary" onclick="syncDrive()">Sinkron Drive</button><button class="btn" onclick="document.getElementById('importFile').click()">Import Data</button><input id="importFile" type="file" accept=".json" multiple hidden onchange="importFiles(event)"><button class="btn red" onclick="logout()">Keluar</button></div><div id="status" class="status"></div></header><div class="layout"><nav id="nav" class="side"></nav><main class="main">
+<section id="dashboard" class="page active"><div class="head"><div><h1>Dashboard Investor</h1><p id="welcome"></p></div><div class="badge ok" id="syncStamp">Belum sinkron</div></div><div id="metrics" class="grid"></div><div class="card"><h3>Rekap Bagi Hasil Bulanan</h3><p class="muted">Persentase diterapkan pada laba bersih setiap bulan. Bulan rugi menghasilkan hak investor Rp0.</p><div class="tablewrap"><table><thead><tr><th>Periode</th><th class="money">Pemasukan</th><th class="money">Pengeluaran</th><th class="money">Laba/Rugi Bulan</th><th class="money">Persentase</th><th class="money">Hak Investor</th><th class="money">Dibayar</th><th class="money">Sisa</th><th>Status</th></tr></thead><tbody id="monthlyRows"></tbody></table></div></div></section>
+<section id="investors" class="page"><div class="head"><div><h1>Admin Investor</h1><p>Kelola investor untuk usaha Anda.</p></div><button class="btn primary" onclick="resetInvestorForm()">Investor Baru</button></div><div class="card"><div class="formgrid"><input type="hidden" id="invId"><div class="field"><label>Nama Investor</label><input id="invName"></div><div class="field"><label>Username</label><input id="invUser"></div><div class="field"><label>Password</label><input id="invPass" type="password" placeholder="Isi untuk baru/ganti"></div><div class="field"><label>Persentase (%)</label><input id="invPct" type="number" min="0" max="100" step="0.01"></div><div class="field"><label>Modal Awal</label><input id="invCapital" type="number" min="0"></div><div class="field"><label>Tanggal Mulai</label><input id="invStart" type="date"></div><div class="field"><label>Status</label><select id="invActive"><option value="1">Aktif</option><option value="0">Nonaktif</option></select></div><div class="field"><label>Catatan</label><input id="invNote"></div></div><div class="actions"><button class="btn green" onclick="saveInvestor()">Simpan Investor</button><button class="btn" onclick="resetInvestorForm()">Batal</button></div></div><div class="card"><div class="tablewrap"><table><thead><tr><th>Nama</th><th>Username</th><th>Usaha</th><th class="money">Persentase</th><th class="money">Modal</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="investorRows"></tbody></table></div></div></section>
+<section id="payments" class="page"><div class="head"><div><h1>Pembayaran Bagi Hasil</h1><p>Catat pembayaran hak investor per periode.</p></div></div><div class="card"><div class="formgrid"><div class="field"><label>Investor</label><select id="payInvestor"></select></div><div class="field"><label>Periode</label><input id="payPeriod" type="month"></div><div class="field"><label>Nominal Dibayar</label><input id="payAmount" type="number" min="0"></div><div class="field"><label>Tanggal</label><input id="payDate" type="date"></div><div class="field"><label>Metode</label><input id="payMethod" placeholder="Transfer/Tunai"></div><div class="field"><label>Referensi</label><input id="payRef"></div><div class="field"><label>Catatan</label><input id="payNote"></div></div><button class="btn green" onclick="savePayment()">Simpan Pembayaran</button></div><div class="card"><div class="tablewrap"><table><thead><tr><th>Tanggal</th><th>Investor</th><th>Periode</th><th class="money">Nominal</th><th>Metode</th><th>Referensi</th><th>Aksi</th></tr></thead><tbody id="paymentRows"></tbody></table></div></div></section>
+<section id="report" class="page printable"><div class="head no-print"><div><h1>Laporan Investor</h1><p>Pilih periode lalu cetak atau Save as PDF.</p></div><div class="actions"><input id="reportFrom" type="month" onchange="renderReport()"><input id="reportTo" type="month" onchange="renderReport()"><button class="btn primary" onclick="window.print()">Print / Save PDF</button></div></div><div class="card"><div id="reportBody" class="report"></div></div></section>
+<section id="backup" class="page"><div class="head"><div><h1>Backup & Sinkronisasi</h1><p>Backup akun investor, pembayaran, dan snapshot laporan.</p></div></div><div class="split"><div class="card"><h3>Google Drive</h3><p class="muted">Login menggunakan akun Owner/Admin. File utama dan versi bertanggal akan dibuat di Drive.</p><div class="actions"><button class="btn green" onclick="googleLogin()">Login Google</button><button class="btn primary" onclick="backupDrive(true)">Backup + Versi</button><button class="btn dark" onclick="restoreDrive()">Restore Latest</button></div><p id="driveInfo" class="muted"></p></div><div class="card"><h3>Backup Lokal</h3><p class="muted">Simpan file JSON sebagai cadangan tambahan.</p><div class="actions"><button class="btn primary" onclick="exportBackup()">Download JSON</button><button class="btn" onclick="document.getElementById('restoreFile').click()">Restore JSON</button><input id="restoreFile" type="file" accept=".json" hidden onchange="restoreLocal(event)"></div></div></div><div class="card"><h3>Audit Log</h3><div id="auditRows" class="muted"></div></div></section>
+</main></div></div>
 <script>
-const DB_KEY='MULIA_INVESTOR_STANDALONE_FINAL_V1';
-const SESSION_KEY='MULIA_INVESTOR_STANDALONE_SESSION_V1';
-const MONTHS=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-const $=id=>document.getElementById(id);
-const num=v=>Number.isFinite(Number(v))?Number(v):0;
-const money=n=>'Rp '+Math.round(num(n)).toLocaleString('id-ID');
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-const defaultDB=()=>({owner:{name:'Abdul Aziz Efendi',username:'owner',password:'Mulia2026!'},investors:[],reports:[]});
-let db=loadDB(),session=loadSession(),activeInvestor=null;
-
-function loadDB(){try{return JSON.parse(localStorage.getItem(DB_KEY))||defaultDB()}catch{return defaultDB()}}
-function saveDB(){localStorage.setItem(DB_KEY,JSON.stringify(db))}
-function loadSession(){try{return JSON.parse(sessionStorage.getItem(SESSION_KEY))||null}catch{return null}}
-function saveSession(data){session=data;sessionStorage.setItem(SESSION_KEY,JSON.stringify(data))}
-function toast(message){const e=$('toast');e.textContent=message;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
-function show(id,yes=true){$(id).classList.toggle('hidden',!yes)}
-function signed(v){return `<span class="${v<0?'negative':'positive'}">${money(v)}</span>`}
-function uid(){return 'INV-'+Date.now().toString().slice(-6)}
-
-function bind(){
-  $('loginForm').addEventListener('submit',login);
-  $('logoutButton').addEventListener('click',logout);
-  $('adminOpenButton').addEventListener('click',openAdmin);
-  $('addInvestorButton').addEventListener('click',()=>openInvestorForm());
-  $('investorForm').addEventListener('submit',saveInvestor);
-  $('investorSelect').addEventListener('change',()=>{activeInvestor=db.investors.find(x=>x.id===$('investorSelect').value)||db.investors[0];renderReport()});
-  $('yearSelect').addEventListener('change',renderReport);
-  $('manualInvestor').addEventListener('change',loadManual);
-  $('manualYear').addEventListener('change',loadManual);
-  $('manualMonth').addEventListener('change',loadManual);
-  $('saveManualButton').addEventListener('click',saveManual);
-  $('downloadBackupButton').addEventListener('click',downloadBackup);
-  $('importBackupInput').addEventListener('change',importBackup);
-  $('resetAllButton').addEventListener('click',resetAll);
-  $('saveOwnerPasswordButton').addEventListener('click',changeOwnerPassword);
-  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.close).close()));
-  document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
-    ['investors','manual','backup','password'].forEach(t=>show('tab-'+t,b.dataset.tab===t));
-    if(b.dataset.tab==='manual')loadManual();
-  }));
-}
-
-function boot(){bind();if(session)enterApp();else showLogin()}
-function showLogin(){show('loginView',true);show('appView',false)}
-function login(e){
-  e.preventDefault();const u=$('loginUsername').value.trim(),p=$('loginPassword').value;
-  if(u===db.owner.username&&p===db.owner.password){saveSession({role:'owner'});enterApp();return}
-  const investor=db.investors.find(i=>i.username===u&&i.password===p&&i.active);
-  if(investor){saveSession({role:'investor',investorId:investor.id});enterApp();return}
-  $('loginMessage').textContent='Username atau password tidak sesuai.'
-}
-function logout(){sessionStorage.removeItem(SESSION_KEY);session=null;showLogin()}
-function enterApp(){
-  show('loginView',false);show('appView',true);show('adminOpenButton',session.role==='owner');show('investorSelect',session.role==='owner');
-  fillYears();activeInvestor=session.role==='owner'?db.investors[0]:db.investors.find(i=>i.id===session.investorId);refreshSelectors();renderReport()
-}
-function fillYears(){const y=[];for(let n=new Date().getFullYear()+1;n>=2024;n--)y.push(`<option>${n}</option>`);$('yearSelect').innerHTML=y.join('');$('yearSelect').value=String(new Date().getFullYear())}
-function refreshSelectors(){
-  $('investorSelect').innerHTML=db.investors.map(i=>`<option value="${i.id}">${esc(i.name)} — ${esc(i.company)}</option>`).join('');
-  if(activeInvestor)$('investorSelect').value=activeInvestor.id;
-}
-function renderReport(){
-  const year=+$('yearSelect').value,i=activeInvestor;
-  $('periodLabel').textContent=year;$('investorName').textContent=i?.name||'-';$('companyName').textContent=i?.company||'-';$('sharePercent').textContent=i?i.share+'%':'-';$('investorCode').textContent=i?.id||'-';$('statusLabel').textContent=i?.active===false?'NONAKTIF':'AKTIF';$('reportTitle').textContent=i?`Laporan Investor ${i.company}`:'Mulia Group Investor Report';$('greeting').textContent=i?`Yth. Bapak/Ibu ${i.name}, berikut laporan perkembangan investasi Anda.`:'Belum ada investor.';
-  const map=new Map(db.reports.filter(r=>r.investorId===i?.id&&r.year===year).map(r=>[r.month,r]));const t={income:0,operational:0,profitSharing:0,expense:0,profit:0,investor:0,owner:0,saving:0};
-  const rows=MONTHS.map((m,idx)=>{const r=map.get(idx+1)||{};const v={income:num(r.income),operational:num(r.operational),profitSharing:num(r.profitSharing),expense:num(r.expense),profit:num(r.profit),investor:num(r.investor),owner:num(r.owner),saving:num(r.saving)};Object.keys(v).forEach(k=>t[k]+=v[k]);return{m,v}});
-  $('monthlyRows').innerHTML=rows.map(r=>`<tr><td>${r.m} ${year}</td><td>${money(r.v.income)}</td><td>${money(r.v.operational)}</td><td>${money(r.v.profitSharing)}</td><td>${money(r.v.expense)}</td><td>${signed(r.v.profit)}</td></tr>`).join('');
-  $('monthlyFoot').innerHTML=`<tr><td>TOTAL</td><td>${money(t.income)}</td><td>${money(t.operational)}</td><td>${money(t.profitSharing)}</td><td>${money(t.expense)}</td><td>${signed(t.profit)}</td></tr>`;
-  $('investorHead').innerHTML=`Investor<br><small>${num(i?.share)}%</small>`;$('ownerHead').innerHTML=`Owner<br><small>${num(i?.ownerShare||60)}%</small>`;$('savingHead').innerHTML=`Tabungan<br><small>${num(i?.savingShare||30)}%</small>`;
-  $('shareRows').innerHTML=rows.map(r=>`<tr><td>${r.m}</td><td>${money(r.v.income)}</td><td>${money(r.v.expense)}</td><td>${signed(r.v.profit)}</td><td>${money(r.v.investor)}</td><td>${money(r.v.owner)}</td><td>${money(r.v.saving)}</td></tr>`).join('');
-  $('shareFoot').innerHTML=`<tr><td>TOTAL ${year}</td><td>${money(t.income)}</td><td>${money(t.expense)}</td><td>${signed(t.profit)}</td><td>${money(t.investor)}</td><td>${money(t.owner)}</td><td>${money(t.saving)}</td></tr>`;
-  $('sumIncome').textContent=money(t.income);$('sumExpense').textContent=money(t.expense);$('sumProfit').textContent=money(t.profit);$('sumInvestor').textContent=money(t.investor)
-}
-function openAdmin(){$('adminDialog').showModal();refreshAdmin()}
-function refreshAdmin(){
-  $('adminInvestorRows').innerHTML=db.investors.map(i=>`<tr><td><b>${esc(i.name)}</b><br><small>${i.id}</small></td><td>${esc(i.username)}</td><td>${esc(i.company)}</td><td>${i.share}%</td><td>${i.active?'Aktif':'Nonaktif'}</td><td><button class="btn secondary edit-investor" data-id="${i.id}">Edit</button></td></tr>`).join('')||'<tr><td colspan="6">Belum ada investor.</td></tr>';
-  document.querySelectorAll('.edit-investor').forEach(b=>b.addEventListener('click',()=>openInvestorForm(db.investors.find(i=>i.id===b.dataset.id))));
-  const opts=db.investors.map(i=>`<option value="${i.id}">${esc(i.name)} — ${esc(i.company)}</option>`).join('');
-  $('manualInvestor').innerHTML=opts;
-  const ys=[];for(let y=new Date().getFullYear()+1;y>=2024;y--)ys.push(`<option>${y}</option>`);$('manualYear').innerHTML=ys.join('');
-  $('manualMonth').innerHTML=MONTHS.map((m,i)=>`<option value="${i+1}">${m}</option>`).join('');
-}
-function openInvestorForm(i=null){
-  $('investorForm').reset();$('formInvestorId').value=i?.id||'';$('investorDialogTitle').textContent=i?'Edit Investor':'Tambah Investor';$('formName').value=i?.name||'';$('formUsername').value=i?.username||'';$('formCompany').value=i?.company||'CV. BERKAH MULIA ADV';$('formShare').value=i?.share??10;$('formOwnerShare').value=i?.ownerShare??60;$('formSavingShare').value=i?.savingShare??30;$('formActive').value=String(i?.active??true);$('formPassword').required=!i;$('formPassword').placeholder=i?'Kosongkan jika tidak diubah':'Minimal 8 karakter';$('investorDialog').showModal()
-}
-function saveInvestor(e){
-  e.preventDefault();const id=$('formInvestorId').value||uid(),password=$('formPassword').value;let i=db.investors.find(x=>x.id===id);
-  const share=num($('formShare').value),ownerShare=num($('formOwnerShare').value),savingShare=num($('formSavingShare').value);
-  if(Math.abs(share+ownerShare+savingShare-100)>.001)return toast('Total persentase harus 100%.');
-  if(!i&&password.length<8)return toast('Password minimal 8 karakter.');
-  const data={id,name:$('formName').value.trim(),username:$('formUsername').value.trim(),password:i?.password||password,company:$('formCompany').value,share,ownerShare,savingShare,active:$('formActive').value==='true'};
-  if(password)data.password=password;
-  if(i)Object.assign(i,data);else db.investors.push(data);
-  activeInvestor=data;saveDB();$('investorDialog').close();refreshAdmin();refreshSelectors();renderReport();toast('Investor berhasil disimpan.')
-}
-function loadManual(){
-  const investorId=$('manualInvestor').value,year=+$('manualYear').value,month=+$('manualMonth').value;
-  const r=db.reports.find(x=>x.investorId===investorId&&x.year===year&&x.month===month)||{};
-  $('manualIncome').value=r.income||'';$('manualOperational').value=r.operational||'';$('manualProfitSharing').value=r.profitSharing||'';$('manualExpense').value=r.expense||'';$('manualProfit').value=r.profit||''
-}
-function saveManual(){
-  const investor=db.investors.find(i=>i.id===$('manualInvestor').value);if(!investor)return toast('Buat investor terlebih dahulu.');
-  const year=+$('manualYear').value,month=+$('manualMonth').value;let r=db.reports.find(x=>x.investorId===investor.id&&x.year===year&&x.month===month);
-  const profit=num($('manualProfit').value),base=Math.max(0,profit);
-  const data={investorId:investor.id,year,month,income:num($('manualIncome').value),operational:num($('manualOperational').value),profitSharing:num($('manualProfitSharing').value),expense:num($('manualExpense').value),profit,investor:base*investor.share/100,owner:base*investor.ownerShare/100,saving:base*investor.savingShare/100};
-  if(r)Object.assign(r,data);else db.reports.push(data);activeInvestor=investor;$('investorSelect').value=investor.id;$('yearSelect').value=String(year);saveDB();renderReport();toast('Laporan bulanan disimpan.')
-}
-function downloadBackup(){
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.download='Mulia_Investor_Backup.json';a.click();URL.revokeObjectURL(a.href)
-}
-async function importBackup(e){
-  try{const x=JSON.parse(await e.target.files[0].text());if(!x.owner||!Array.isArray(x.investors)||!Array.isArray(x.reports))throw Error('Format backup tidak sesuai.');db=x;saveDB();refreshAdmin();refreshSelectors();activeInvestor=db.investors[0];renderReport();toast('Backup berhasil diimpor.')}catch(err){toast(err.message)}
-}
-function resetAll(){if(confirm('Hapus seluruh data lokal dan kembali ke login Owner awal?')){db=defaultDB();saveDB();sessionStorage.removeItem(SESSION_KEY);location.reload()}}
-function changeOwnerPassword(){
-  const p=$('newOwnerPassword').value,p2=$('newOwnerPassword2').value;if(p.length<8)return toast('Password minimal 8 karakter.');if(p!==p2)return toast('Konfirmasi password tidak sama.');db.owner.password=p;saveDB();$('newOwnerPassword').value='';$('newOwnerPassword2').value='';toast('Password Owner berhasil diubah.')
-}
-boot();
-</script>
-</body>
-</html>
+const CLIENT_ID='169606052820-5ij848mubicfdppo5b2g5qpaub67munt.apps.googleusercontent.com';
+const DB_KEY='MULIA_INVESTOR_PORTAL_DB_V1', OWNER_CACHE='MULIA_OWNER_CACHE_V1', DRIVE_NAME='MULIA_GROUP_INVESTOR_PORTAL_LATEST.json';
+const COMPANIES={BERKAH:{name:'CV. BERKAH MULIA ADV',short:'Berkah Mulia'},DWI:{name:'PT. DWI MULIA ADVERTISING',short:'Dwi Mulia'},AZKIA:{name:'PT. AZKIA MULIA PERADA',short:'Azkia Mulia'}};
+let current=null, token=sessionStorage.getItem('MULIA_INVESTOR_TOKEN')||'', googleEmail=sessionStorage.getItem('MULIA_INVESTOR_EMAIL')||'';
+let db=loadDB();
+function defaultDB(){return{version:1,updatedAt:new Date().toISOString(),admins:[{id:'ADM-BM',company:'BERKAH',name:'Admin Berkah',username:'admin.berkah',password:'123456'},{id:'ADM-DM',company:'DWI',name:'Admin Dwi',username:'admin.dwi',password:'123456'},{id:'ADM-AP',company:'AZKIA',name:'Admin Azkia',username:'admin.azkia',password:'123456'}],investors:[],payments:[],companies:{},audit:[]}}
+function loadDB(){try{return Object.assign(defaultDB(),JSON.parse(localStorage.getItem(DB_KEY)||'null')||{})}catch(e){return defaultDB()}}
+function saveDB(action){db.updatedAt=new Date().toISOString();if(action)db.audit.unshift({at:db.updatedAt,user:current?.username||'system',action});db.audit=db.audit.slice(0,300);localStorage.setItem(DB_KEY,JSON.stringify(db));renderAll()}
+const n=v=>Number(v)||0, esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])), rp=v=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n(v));
+function login(){const u=document.getElementById('loginUser').value.trim(),p=document.getElementById('loginPass').value;let a=db.admins.find(x=>x.username===u&&x.password===p);if(a)current={role:'admin',...a};else{let i=db.investors.find(x=>x.username===u&&x.password===p&&x.active!==false);if(i)current={role:'investor',...i}}if(!current){alert('Username atau password salah.');return}sessionStorage.setItem('MULIA_INVESTOR_SESSION',JSON.stringify(current));showApp()}
+function logout(){sessionStorage.removeItem('MULIA_INVESTOR_SESSION');current=null;location.reload()}
+function showApp(){document.getElementById('loginGate').classList.add('hidden');document.getElementById('app').classList.remove('hidden');buildNav();renderAll()}
+function buildNav(){let items=[['dashboard','Dashboard'],['report','Laporan / PDF']];if(current.role==='admin')items.splice(1,0,['investors','Admin Investor'],['payments','Pembayaran']);items.push(['backup','Backup']);document.getElementById('nav').innerHTML=items.map((x,i)=>`<button class="${i?'':'active'}" onclick="openPage('${x[0]}',this)">${x[1]}</button>`).join('')}
+function openPage(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active');if(id==='report')renderReport()}
+function companyCode(){return current.company}
+function getInvestors(){return db.investors.filter(x=>x.company===companyCode() && (current.role==='admin'||x.id===current.id))}
+function companyPayload(code){return db.companies?.[code]||null}
+function extractStorage(raw){return raw?.storage||raw?.data?.storage||raw?.localStorage||raw?.payload?.storage||{}}
+function identify(raw,name=''){const s=extractStorage(raw),t=(raw?.companyCode||raw?.payload?.companyCode||raw?.companyName||name||'').toUpperCase();if(t.includes('BERKAH')||s.BM_SALES_DB_V1)return'BERKAH';if(t.includes('DWI')||s.DMA_SALES_DB_V1)return'DWI';if(t.includes('AZKIA')||s.AP_SALES_DB_V1)return'AZKIA';return null}
+function normalizeCompany(raw,code){return{raw,storage:extractStorage(raw),updatedAt:raw?.syncedAt||raw?.createdAt||new Date().toISOString(),code}}
+function importFiles(ev){[...(ev.target.files||[])].forEach(f=>{let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(x.companies&&x.app){Object.entries(x.companies).forEach(([code,v])=>{if(COMPANIES[code])db.companies[code]=normalizeCompany(v,code)})}else{let code=identify(x,f.name);if(!code)throw Error('Perusahaan tidak dikenali');db.companies[code]=normalizeCompany(x,code)}saveDB('Import data '+f.name)}catch(e){alert('Import gagal: '+e.message)}};r.readAsText(f)});ev.target.value=''}
+function cashDB(code){let s=companyPayload(code)?.storage||{},keys=code==='BERKAH'?['BM_KAS_BESAR_IMPORT_EXCEL_V1','BM_KAS_BESAR_ACTIVE_DB','BM_KAS_IMPORT_EXCEL_V1']:code==='DWI'?['DMA_KAS_BESAR_ACTIVE_DB','dwiMuliaKas_V8_ENTERPRISE']:['AP_KAS_BESAR_ACTIVE_DB','AP_KAS_V8_ENTERPRISE','azkiaMuliaKas_V8_ENTERPRISE'];for(let k of keys)if(s[k])return s[k];return{}}
+function monthlyData(code){let c=cashDB(code),out={};function add(period,type,amt){period=String(period||'').slice(0,7);if(!/^\d{4}-\d{2}$/.test(period))return;out[period]??={income:0,expense:0};out[period][type]+=n(amt)}let tx=c.transactions||{};Object.entries(tx).forEach(([p,m])=>{(m?.pemasukan||[]).forEach(x=>add(x.date||x.tanggal||p,'income',x.amount||x.nominal||x.total));['operasional','pengeluaran'].forEach(k=>(m?.[k]||[]).forEach(x=>add(x.date||x.tanggal||p,'expense',x.amount||x.nominal||x.total))) });(c.entries||[]).forEach(x=>add(x.date||x.tanggal,String(x.type||'').toLowerCase().includes('masuk')?'income':'expense',x.amount||x.nominal||x.total));if(!Object.keys(out).length&&c.rekap){Object.entries(c.rekap).forEach(([p,r])=>{out[p]={income:n(r.pemasukanReal||r.pemasukan),expense:n(r.pengeluaranReal||r.pengeluaran)}})}return out}
+function paymentTotal(invId,period){return db.payments.filter(x=>x.investorId===invId&&x.period===period).reduce((s,x)=>s+n(x.amount),0)}
+function investorMonthly(inv){let m=monthlyData(inv.company);return Object.entries(m).sort(([a],[b])=>a.localeCompare(b)).map(([period,x])=>{let profit=x.income-x.expense,share=profit>0?profit*n(inv.percent)/100:0,paid=paymentTotal(inv.id,period);return{period,...x,profit,share,paid,remaining:Math.max(0,share-paid),status:share<=0?'Tidak Ada Hak':paid<=0?'Belum Dibayar':paid+1<share?'Sebagian':'Lunas'}})}
+function selectedInvestor(){return current.role==='investor'?current:getInvestors()[0]||null}
+function renderDashboard(){let inv=selectedInvestor(),rows=inv?investorMonthly(inv):[],totalProfit=rows.reduce((s,x)=>s+x.profit,0),totalShare=rows.reduce((s,x)=>s+x.share,0),paid=rows.reduce((s,x)=>s+x.paid,0);document.getElementById('welcome').textContent=inv?`${inv.name} • ${COMPANIES[inv.company].name} • ${inv.percent}%`:`${COMPANIES[current.company].name} — belum ada investor`;document.getElementById('syncStamp').textContent=db.updatedAt?'Update '+new Date(db.updatedAt).toLocaleString('id-ID'):'Belum sinkron';document.getElementById('metrics').innerHTML=[['Laba/Rugi Rekap',rp(totalProfit)],['Hak Investor',rp(totalShare)],['Sudah Dibayar',rp(paid)],['Sisa Hak',rp(Math.max(0,totalShare-paid))]].map(x=>`<div class="card metric"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');document.getElementById('monthlyRows').innerHTML=rows.length?rows.map(x=>`<tr><td>${x.period}</td><td class="money">${rp(x.income)}</td><td class="money">${rp(x.expense)}</td><td class="money">${rp(x.profit)}</td><td class="money">${inv.percent}%</td><td class="money"><b>${rp(x.share)}</b></td><td class="money">${rp(x.paid)}</td><td class="money">${rp(x.remaining)}</td><td><span class="badge ${x.status==='Lunas'?'ok':x.status==='Sebagian'?'warn':x.status==='Tidak Ada Hak'?'':'red'}">${x.status}</span></td></tr>`).join(''):`<tr><td colspan="9">Belum ada data bulanan atau investor.</td></tr>`}
+function resetInvestorForm(){['invId','invName','invUser','invPass','invPct','invCapital','invStart','invNote'].forEach(id=>document.getElementById(id).value='');document.getElementById('invActive').value='1'}
+function saveInvestor(){let id=document.getElementById('invId').value||'INV-'+companyCode().slice(0,2)+'-'+Date.now(),old=db.investors.find(x=>x.id===id),name=document.getElementById('invName').value.trim(),username=document.getElementById('invUser').value.trim(),pass=document.getElementById('invPass').value;if(!name||!username||(!old&&!pass)){alert('Nama, username, dan password wajib diisi.');return}if([...db.admins,...db.investors].some(x=>x.username===username&&x.id!==id)){alert('Username sudah digunakan.');return}let obj={id,company:companyCode(),name,username,password:pass||old.password,percent:n(document.getElementById('invPct').value),capital:n(document.getElementById('invCapital').value),startDate:document.getElementById('invStart').value,note:document.getElementById('invNote').value,active:document.getElementById('invActive').value==='1'};if(old)Object.assign(old,obj);else db.investors.push(obj);resetInvestorForm();saveDB((old?'Ubah':'Tambah')+' investor '+name)}
+function editInvestor(id){let x=db.investors.find(v=>v.id===id);if(!x)return;invId.value=x.id;invName.value=x.name;invUser.value=x.username;invPct.value=x.percent;invCapital.value=x.capital;invStart.value=x.startDate||'';invNote.value=x.note||'';invActive.value=x.active===false?'0':'1';openPage('investors',[...document.querySelectorAll('#nav button')].find(b=>b.textContent.includes('Admin Investor')))}
+function delInvestor(id){let x=db.investors.find(v=>v.id===id);if(!x||!confirm('Hapus investor '+x.name+'?'))return;db.investors=db.investors.filter(v=>v.id!==id);db.payments=db.payments.filter(v=>v.investorId!==id);saveDB('Hapus investor '+x.name)}
+function renderInvestors(){let rows=getInvestors();document.getElementById('investorRows').innerHTML=rows.length?rows.map(x=>`<tr><td><b>${esc(x.name)}</b></td><td>${esc(x.username)}</td><td>${COMPANIES[x.company].short}</td><td class="money">${x.percent}%</td><td class="money">${rp(x.capital)}</td><td><span class="badge ${x.active===false?'red':'ok'}">${x.active===false?'Nonaktif':'Aktif'}</span></td><td><button class="btn" onclick="editInvestor('${x.id}')">Edit</button> <button class="btn red" onclick="delInvestor('${x.id}')">Hapus</button></td></tr>`).join(''):`<tr><td colspan="7">Belum ada investor.</td></tr>`;payInvestor.innerHTML=rows.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}
+function savePayment(){let investorId=payInvestor.value,period=payPeriod.value,amount=n(payAmount.value);if(!investorId||!period||amount<=0){alert('Investor, periode, dan nominal wajib diisi.');return}db.payments.push({id:'PAY-'+Date.now(),investorId,period,amount,date:payDate.value||new Date().toISOString().slice(0,10),method:payMethod.value,reference:payRef.value,note:payNote.value});['payAmount','payMethod','payRef','payNote'].forEach(id=>document.getElementById(id).value='');saveDB('Pembayaran bagi hasil '+period)}
+function delPayment(id){if(confirm('Hapus pembayaran ini?')){db.payments=db.payments.filter(x=>x.id!==id);saveDB('Hapus pembayaran')}}
+function renderPayments(){let ids=new Set(getInvestors().map(x=>x.id)),rows=db.payments.filter(x=>ids.has(x.investorId)).sort((a,b)=>String(b.date).localeCompare(String(a.date)));document.getElementById('paymentRows').innerHTML=rows.length?rows.map(x=>{let i=db.investors.find(v=>v.id===x.investorId);return`<tr><td>${x.date}</td><td>${esc(i?.name||'-')}</td><td>${x.period}</td><td class="money">${rp(x.amount)}</td><td>${esc(x.method||'-')}</td><td>${esc(x.reference||'-')}</td><td><button class="btn red" onclick="delPayment('${x.id}')">Hapus</button></td></tr>`}).join(''):`<tr><td colspan="7">Belum ada pembayaran.</td></tr>`}
+function renderReport(){let inv=selectedInvestor();if(!inv){reportBody.innerHTML='<p>Belum ada investor.</p>';return}let from=reportFrom.value,to=reportTo.value,rows=investorMonthly(inv).filter(x=>(!from||x.period>=from)&&(!to||x.period<=to)),share=rows.reduce((s,x)=>s+x.share,0),paid=rows.reduce((s,x)=>s+x.paid,0);reportBody.innerHTML=`<div class="reportHeader"><div><h2>${COMPANIES[inv.company].name}</h2><div class="small">LAPORAN BAGI HASIL INVESTOR</div></div><div class="right"><b>MULIA GROUP</b><div class="small">Dicetak ${new Date().toLocaleString('id-ID')}</div></div></div><div class="split"><div><b>Nama Investor</b><br>${esc(inv.name)}</div><div><b>Persentase Bagi Hasil</b><br>${inv.percent}%</div><div><b>Periode</b><br>${from||'Awal'} s.d. ${to||'Terakhir'}</div><div><b>Modal Awal</b><br>${rp(inv.capital)}</div></div><h3 style="margin-top:24px">Rekap Bulanan</h3><div class="tablewrap"><table><thead><tr><th>Periode</th><th class="money">Laba/Rugi</th><th class="money">Hak Investor</th><th class="money">Dibayar</th><th class="money">Sisa</th><th>Status</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${x.period}</td><td class="money">${rp(x.profit)}</td><td class="money">${rp(x.share)}</td><td class="money">${rp(x.paid)}</td><td class="money">${rp(x.remaining)}</td><td>${x.status}</td></tr>`).join('')}<tr><th>TOTAL</th><th></th><th class="money">${rp(share)}</th><th class="money">${rp(paid)}</th><th class="money">${rp(Math.max(0,share-paid))}</th><th></th></tr></tbody></table></div><p class="small"><b>Catatan:</b> Bagi hasil dihitung dari laba bersih masing-masing bulan. Bulan rugi tidak menghasilkan hak bagi hasil. Angka global hanya merupakan penjumlahan laporan bulanan dan bukan dasar perhitungan.</p><div class="signature"><div>Admin / Pengelola</div><div>${esc(inv.name)}</div></div>`}
+function renderAudit(){auditRows.innerHTML=(db.audit||[]).slice(0,50).map(x=>`<div>${new Date(x.at).toLocaleString('id-ID')} — <b>${esc(x.user)}</b> — ${esc(x.action)}</div>`).join('')||'Belum ada audit log.'}
+function renderAll(){if(!current)return;renderDashboard();if(current.role==='admin'){renderInvestors();renderPayments()}renderReport();renderAudit();status.textContent=`${current.name} • ${COMPANIES[current.company].short} • ${current.role==='admin'?'ADMIN':'INVESTOR'}`;driveInfo.textContent=token?'Google terhubung: '+(googleEmail||'aktif'):'Google belum login'}
+function backupPayload(){return{app:'Mulia Group Investor Portal',schema:'MULIA_INVESTOR_V1',createdAt:new Date().toISOString(),db}}
+function exportBackup(){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(backupPayload(),null,2)],{type:'application/json'}));a.download='Mulia_Group_Investor_Backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function restoreLocal(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);db=x.db||x;if(!db.investors||!db.admins)throw Error('Format tidak sesuai');saveDB('Restore backup lokal')}catch(err){alert(err.message)}};r.readAsText(f);e.target.value=''}
+function googleLogin(){if(!window.google?.accounts?.oauth2){alert('Layanan Google belum siap.');return}google.accounts.oauth2.initTokenClient({client_id:CLIENT_ID,scope:'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email',callback:async r=>{if(r.error)return alert('Login gagal: '+r.error);token=r.access_token;sessionStorage.setItem('MULIA_INVESTOR_TOKEN',token);try{let u=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+token}}).then(x=>x.json());googleEmail=u.email||'';sessionStorage.setItem('MULIA_INVESTOR_EMAIL',googleEmail)}catch(e){}renderAll()}}).requestAccessToken({prompt:token?'':'consent'})}
+async function driveFind(name){let q=encodeURIComponent(`name='${name.replaceAll("'","\\'")}' and trashed=false`),r=await fetch(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name,modifiedTime)&orderBy=modifiedTime desc&pageSize=10`,{headers:{Authorization:'Bearer '+token}});if(!r.ok)throw Error('Gagal mencari file Drive');return(await r.json()).files?.[0]}
+async function driveUpload(name,obj){let old=await driveFind(name),blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});if(old){let r=await fetch(`https://www.googleapis.com/upload/drive/v3/files/${old.id}?uploadType=media`,{method:'PATCH',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:blob});if(!r.ok)throw Error('Gagal memperbarui Drive')}else{let boundary='mulia'+Date.now(),body=new Blob([`--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify({name,mimeType:'application/json'})}\r\n--${boundary}\r\nContent-Type: application/json\r\n\r\n`,blob,`\r\n--${boundary}--`]);let r=await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'multipart/related; boundary='+boundary},body});if(!r.ok)throw Error('Gagal membuat file Drive')}}
+async function backupDrive(version=false){if(!token)return googleLogin();try{await driveUpload(DRIVE_NAME,backupPayload());if(version)await driveUpload('MULIA_GROUP_INVESTOR_PORTAL_'+new Date().toISOString().replace(/[:.]/g,'-')+'.json',backupPayload());saveDB('Backup Google Drive');alert('Backup Google Drive berhasil.')}catch(e){alert(e.message)}}
+async function restoreDrive(){if(!token)return googleLogin();try{let f=await driveFind(DRIVE_NAME);if(!f)throw Error('Backup Drive belum ada');let r=await fetch(`https://www.googleapis.com/drive/v3/files/${f.id}?alt=media`,{headers:{Authorization:'Bearer '+token}});let x=await r.json();db=x.db||x;saveDB('Restore Google Drive');alert('Restore berhasil.')}catch(e){alert(e.message)}}
+async function syncDrive(){await backupDrive(false)}
+(function init(){let owner=localStorage.getItem(OWNER_CACHE);if(owner&&!Object.keys(db.companies||{}).length){try{let x=JSON.parse(owner);Object.entries(x).forEach(([code,v])=>{if(COMPANIES[code])db.companies[code]=normalizeCompany(v,code)});localStorage.setItem(DB_KEY,JSON.stringify(db))}catch(e){}}let s=sessionStorage.getItem('MULIA_INVESTOR_SESSION');if(s){try{current=JSON.parse(s);showApp()}catch(e){}}payDate.value=new Date().toISOString().slice(0,10);payPeriod.value=new Date().toISOString().slice(0,7);reportTo.value=new Date().toISOString().slice(0,7)})();
+</script></body></html>
